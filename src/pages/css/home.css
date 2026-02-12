@@ -25,6 +25,7 @@ h2{
   width: 30%;
   object-fit: cover;
   border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(198, 167, 94, 0.3);
 }
 .div-main{
 	display: flex;
@@ -41,7 +42,7 @@ h2{
   display: inline-block;
   margin: 20px;
   color: #EBE1CD;
-  border-radius: 12px;
+  border-radius: 10px;
   border: 2px solid #C6A75E;
   background-color: #2A2A2A;
   font-size: 20px;
@@ -51,10 +52,9 @@ h2{
 }
 
 .nav-button:hover {
-  background: linear-gradient(135deg, #8E7B4F, #C6A75E);
+  background: linear-gradient(145deg, #C6A75E, #E6D6B4);
   color: #1a1a1a;
-  box-shadow: 0 10px 25px rgba(198, 167, 94, 0.4);
-  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(198, 167, 94, 0.35);
 }
 
 .question-div{

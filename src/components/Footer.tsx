@@ -24,7 +24,7 @@ function Footer(){
 		</p>
 		</div>
 		<div className="login-footer">
-				<NavLink to={""}>Inloggning för ägare</NavLink>
+				<NavLink to={"/admin"}>Inloggning för ägare</NavLink>
 			<div className="header-logo">
           <img src={logo} alt="Logo-beauty-salon" />
         </div>

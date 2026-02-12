@@ -4,6 +4,7 @@ import './App.css'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Contact from './pages/Contact'
+import Admin from "./pages/Admin"
 
 function App() {
   
@@ -15,6 +16,7 @@ function App() {
 			<Route path='/' element={<Home></Home>}></Route>
 			<Route path='/services' element={<Services></Services>}></Route>
 			<Route path='/contact' element={<Contact></Contact>}></Route>
+			<Route path='/admin' element={<Admin></Admin>}></Route>
 		</Routes>
 	  </HashRouter>
     </div>

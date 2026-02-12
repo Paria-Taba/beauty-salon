@@ -16,6 +16,9 @@ h1{
 	
   box-shadow: 0 15px 35px rgba(198, 167, 94, 0.3);
 }
+.text-contact{
+	margin-top: 50px;
+}
 @media screen and (max-width:1029px) {
 .contact-div{
 	margin:0 0 50px 0;

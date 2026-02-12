@@ -37,6 +37,7 @@ function Contact(){
 		>
 		@mary7.salong
 		</a></p>
+		<p className="text-contact">You can find us in Frölunda, just a short walk from local transport.</p>
 				
 				</div>
 				<div className="contact1-image">
