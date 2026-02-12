@@ -4,7 +4,6 @@ import pic1 from "../../public/1.jpeg"
 import pic2 from "../../public/2.jpeg"
 import pic3 from "../../public/3.jpeg"
 import Footer from "../components/Footer.tsx"
-import { NavLink } from "react-router-dom"
 function Home(){
 	return(
 		<div>
