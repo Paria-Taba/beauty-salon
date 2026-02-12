@@ -1,0 +1,166 @@
+.title-div{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+h1{
+	color: #E6D6B4;
+}
+h2{
+	margin-top: -5px;
+	color: #CDAA8C;
+}
+
+.div-image {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  
+}
+
+.div-image img {
+	border: 2px solid #E6D6B4;
+  flex: 1 1 30%;
+  width: 30%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.div-main{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.div-main p{
+	font-size: 20px;
+	text-align: center;
+	padding: 20px;
+}
+.div-main button{
+margin: 20px;
+	color: #EBE1CD;
+	cursor: pointer;
+	border-radius: 12px;
+	border: 2px solid #C6A75E;
+	background-color: #2A2A2A;
+	font-size: 20px;
+	padding: 20px;
+	transition: all 2s;
+}
+/* Hover */
+.div-main button:hover {
+  background: linear-gradient(135deg, #C6A75E, #E6D6B4);
+  color: #1a1a1a;
+  box-shadow: 0 10px 25px rgba(198, 167, 94, 0.4);
+  transform: translateY(-3px);
+}
+
+@media screen and (min-width:768px) {
+	.home-main-div{
+		display: flex;
+		flex-direction: row-reverse;
+		padding: 20px;
+
+	}
+	
+.div-image {
+  
+  gap: 20px;
+  
+  
+}
+
+.div-main button{
+	font-size: 16px;
+}
+h1{
+	font-size: 40px;
+}
+h2{
+	font-size: 30px;
+}
+	.div-main p {
+  font-size: 18px;
+  width: 250px;
+  position: relative;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.div-main p::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;             
+  height: 2px;
+  background-color: #C6A75E;
+}
+.div-main {
+  position: relative;
+  padding-bottom: 20px; 
+}
+
+.div-main::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;             
+  height: 2px;
+  background-color: #C6A75E;
+}
+
+
+}
+
+@media screen and (min-width:1020px){
+.div-main p{
+		
+		width: 400px;
+		
+	}
+	.div-main button{
+	font-size: 18px;
+}
+	.div-main p{
+		font-size: 28px;
+		width: 400px;
+		
+	}
+	h1{
+	font-size: 50px;
+}
+h2{
+	font-size: 40px;
+}
+
+}
+@media screen and (max-width:500px){
+	.div-main button{
+		font-size: 14px;
+	}
+	.div-main p{
+		font-size: 18px;
+	}
+}
+
+
+.question-div{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 30px;
+}
+.p-1{
+	font-size: 20px;
+}
+.p-2{
+	border-bottom: 1px solid;
+	cursor: pointer;
+	margin-top: -10px;
+}
