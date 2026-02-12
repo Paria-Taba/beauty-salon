@@ -1,47 +1,52 @@
-.header{
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 10px 40px 0px 0px;
-
+/* ===== HEADER ===== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px 0px 0px;
 }
 
-.header-logo img{
-	width: 100px;
+.header-logo img {
+  width: 100px;
 }
-.navbar{
-	  display: flex;
+
+/* ===== NAVBAR DESKTOP ===== */
+.navbar {
+  display: flex;
   gap: 50px;
 }
+
 .navbar a {
   text-decoration: none;
   color: #DED0B4;
   font-size: 20px;
   position: relative;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
+/* Underline animation (centered) */
 .navbar a::after {
   content: "";
   position: absolute;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: -6px;
   width: 0%;
   height: 2px;
   background: linear-gradient(to right, #f5e6c8, #c6a96f);
-  transition: all 0.3s ease;
+  transition: width 0.4s ease;
 }
 
 .navbar a:hover {
   color: #ffd27e;
-  scale: 1.1;
+  transform: scale(1.05);
 }
 
 .navbar a:hover::after {
   width: 100%;
-    transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-
 }
+
+/* ===== LUX DIVIDER ===== */
 .lux-divider {
   display: flex;
   align-items: center;
@@ -53,7 +58,6 @@
   content: "";
   flex: 1;
   height: 1.5px;
-
   background: linear-gradient(
     to right,
     transparent,
@@ -76,6 +80,8 @@
   color: #c6a75e;
   text-shadow: 0 0 8px rgba(198, 167, 94, 0.6);
 }
+
+/* ===== HAMBURGER ===== */
 .hamburger {
   display: none;
   cursor: pointer;
@@ -84,23 +90,32 @@
 .hamburger img {
   width: 45px;
 }
+
+/* ===== MOBILE ===== */
 @media screen and (max-width: 768px) {
 
   .navbar {
+    border-radius: 12px;
+    border: 1px solid #C6A75E;
     display: none;
     flex-direction: column;
     position: absolute;
     top: 80px;
-    right: 0;
+    right: 15px;
     background: #161616;
-    width: 100%;
+    width: 60%;
     text-align: center;
     padding: 30px 0;
     gap: 30px;
+    overflow: hidden;
   }
 
   .navbar.active {
     display: flex;
+  }
+
+  .navbar a:hover::after {
+    width: 30%;
   }
 
   .hamburger {

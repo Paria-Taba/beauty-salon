@@ -1,11 +1,32 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import "../components/css/header.css"
 import logo from "../../public/logo.png"
 import { NavLink } from "react-router-dom"
-import menuIcon from "../../public/menu.png" 
+import menuIcon from "../../public/menu.png"
 
 function Header() {
   const [open, setOpen] = useState(false)
+const navRef = useRef<HTMLDivElement | null>(null)
+
+useEffect(() => {
+  function handleClickOutside(event: MouseEvent) {
+    if (
+      navRef.current &&
+      event.target instanceof Node &&
+      !navRef.current.contains(event.target)
+    ) {
+      setOpen(false)
+    }
+  }
+
+  if (open) {
+    document.addEventListener("mousedown", handleClickOutside)
+  }
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside)
+  }
+}, [open])
 
   return (
     <div>
@@ -14,14 +35,16 @@ function Header() {
           <img src={logo} alt="Logo-beauty-salon" />
         </div>
 
-        <div className={`navbar ${open ? "active" : ""}`}>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/services">Services</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
-          <NavLink to="/book">Book now</NavLink>
+        <div
+          ref={navRef}
+          className={`navbar ${open ? "active" : ""}`}
+        >
+          <NavLink to="/">Hem</NavLink>
+          <NavLink to="/services">Behandlingar</NavLink>
+          <NavLink to="/contact">Kontakt</NavLink>
+          <NavLink to="/book">Boka tid</NavLink>
         </div>
 
-        {/* Hamburger */}
         <div className="hamburger" onClick={() => setOpen(!open)}>
           <img src={menuIcon} alt="menu" />
         </div>
