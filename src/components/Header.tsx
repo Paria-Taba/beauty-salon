@@ -42,7 +42,13 @@ useEffect(() => {
           <NavLink to="/">Hem</NavLink>
           <NavLink to="/services">Behandlingar</NavLink>
           <NavLink to="/contact">Kontakt</NavLink>
-          <NavLink to="/book">Boka tid</NavLink>
+          <a 
+  href="https://www.bokadirekt.se/places/mary7-47193"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Boka tid
+</a>
         </div>
 
         <div className="hamburger" onClick={() => setOpen(!open)}>

@@ -22,9 +22,14 @@ function Home(){
 			</div>
 			<div className="div-main">
 				<p>Med många års erfarenhet skapar vi skönhet med passion och precision</p>
-				<NavLink to="/book" className="nav-button">
+				<a 
+  href="https://www.bokadirekt.se/places/mary7-47193"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="nav-button"
+>
   Boka tid
-</NavLink>
+</a>
 			</div>
 
 		</div>
