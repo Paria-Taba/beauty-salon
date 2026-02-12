@@ -55,3 +55,9 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 	
 }
 }
+@media screen and (max-width:400px){
+	.login-div{
+		margin: 0 20px 80px 20px;
+	}
+
+}
