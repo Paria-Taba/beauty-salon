@@ -37,24 +37,26 @@ h2{
 	text-align: center;
 	padding: 20px;
 }
-.div-main button{
-margin: 20px;
-	color: #EBE1CD;
-	cursor: pointer;
-	border-radius: 12px;
-	border: 2px solid #C6A75E;
-	background-color: #2A2A2A;
-	font-size: 20px;
-	padding: 20px;
-	transition: all 2s;
+.nav-button {
+  display: inline-block;
+  margin: 20px;
+  color: #EBE1CD;
+  border-radius: 12px;
+  border: 2px solid #C6A75E;
+  background-color: #2A2A2A;
+  font-size: 20px;
+  padding: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
-/* Hover */
-.div-main button:hover {
-  background: linear-gradient(135deg, #C6A75E, #E6D6B4);
+
+.nav-button:hover {
+  background: linear-gradient(135deg, #8E7B4F, #C6A75E);
   color: #1a1a1a;
   box-shadow: 0 10px 25px rgba(198, 167, 94, 0.4);
   transform: translateY(-3px);
 }
+
 
 @media screen and (min-width:768px) {
 	.home-main-div{
@@ -70,8 +72,7 @@ margin: 20px;
   
   
 }
-
-.div-main button{
+.nav-button{
 	font-size: 16px;
 }
 h1{
@@ -123,7 +124,7 @@ h2{
 		width: 400px;
 		
 	}
-	.div-main button{
+	.nav-button{
 	font-size: 18px;
 }
 	.div-main p{
@@ -140,7 +141,9 @@ h2{
 
 }
 @media screen and (max-width:500px){
-	.div-main button{
+	.nav-button{
+		margin: 0;
+		margin-bottom: 10px;
 		font-size: 14px;
 	}
 	.div-main p{
@@ -163,4 +166,10 @@ h2{
 	border-bottom: 1px solid;
 	cursor: pointer;
 	margin-top: -10px;
+	 color: #BEAF96;
+	
+
+}
+.p-2:hover{
+	  color: #ffdb94;
 }

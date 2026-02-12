@@ -4,6 +4,7 @@ import pic1 from "../../public/1.jpeg"
 import pic2 from "../../public/2.jpeg"
 import pic3 from "../../public/3.jpeg"
 import Footer from "../components/Footer.tsx"
+import { NavLink } from "react-router-dom"
 function Home(){
 	return(
 		<div>
@@ -21,7 +22,9 @@ function Home(){
 			</div>
 			<div className="div-main">
 				<p>Med många års erfarenhet skapar vi skönhet med passion och precision</p>
-				<button>BOKA TID HÄR</button>
+				<NavLink to="/book" className="nav-button">
+  Boka tid
+</NavLink>
 			</div>
 
 		</div>

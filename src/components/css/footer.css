@@ -1,0 +1,67 @@
+.insta-link {
+  color: #EBE1CD;               
+  text-decoration-color: #C6A75E;  
+  text-decoration: none;
+  text-underline-offset: 4px;
+  transition: 0.3s ease;
+ 
+}
+.footer{
+	padding: 10px;
+}
+.insta-link:hover {
+   color: #ffdb94;
+  text-decoration-color: #efd08c;
+  border-bottom: 1px solid #DED0B4;;
+}
+.footer-div{
+	display: flex;
+	justify-content: space-between;
+}
+.login-footer{
+	display: flex;
+	align-items: center;
+	
+}
+.login-footer a {
+  position: relative;
+  text-decoration: none;
+  color: #BEAF96;
+  transition: color 0.3s ease;
+  margin-right: 10px;
+}
+
+.login-footer a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #C6A75E, #E6D6B4);
+  transition: 0.3s ease;
+}
+
+.login-footer a:hover {
+  color: #ffdb94;
+}
+@media screen and (max-width:768px) {
+	.login-footer{
+	display: flex;
+	flex-direction: column-reverse;
+	padding-bottom: 20px;
+	
+}
+.footer{
+	font-size: 14px;
+}
+.footer img{
+	width: 60px;
+}
+}
+@media screen and (max-width:400px){
+.footer{
+	font-size: 12px;
+}
+}
