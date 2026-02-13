@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
+import "../pages/css/behandlingdetail.css"
 
 function BehandlingDetail() {
   const { id } = useParams()
@@ -18,18 +19,22 @@ function BehandlingDetail() {
   return (
     <div>
       <Header />
-
+	  <div className="service-detail-title">
+		 <img src={behandling.icon}  />
       <h1>{behandling.title}</h1>
-      <p>{behandling.description}</p>
+
+	  </div>
+
 
       <div>
-        {behandling.services.map((service: any, index: number) => (
-          <div key={index}>
-            <h3>{service.name}</h3>
-            <p>{service.duration} min</p>
-            <p>{service.price} SEK</p>
-          </div>
-        ))}
+        {behandling.services.map((service: any) => (
+  <div key={service._id}>
+    <h3>{service.name}</h3>
+    <p>{service.tid} min</p>
+    <p>{service.description}</p>
+    <p>{service.price} SEK</p>
+  </div>
+))}
       </div>
 
       <Footer />

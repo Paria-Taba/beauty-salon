@@ -6,15 +6,20 @@ const subServiceSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  duration: {
+  tid: {
     type: Number,
     required: true
   },
   price: {
     type: Number,
     required: true
+  },
+   description: {
+    type: String,
+    required: true
   }
-})
+},
+{ timestamps: true })
 
 
 const behandlingSchema = new mongoose.Schema(

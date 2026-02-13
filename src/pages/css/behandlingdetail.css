@@ -1,0 +1,11 @@
+.service-detail-title{
+	display: flex;
+}
+.service-detail-title img{
+	background-color: white;
+	border-radius: 100%;
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+	 border: 2px solid #C6A75E;
+}
