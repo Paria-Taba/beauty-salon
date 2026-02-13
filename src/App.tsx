@@ -6,6 +6,7 @@ import Services from './pages/Services'
 import Contact from './pages/Contact'
 import Admin from "./pages/Admin"
 import Message from './pages/Message'
+import BehandlingDetail from './pages/BehandlingDetail'
 
 function App() {
   
@@ -19,6 +20,7 @@ function App() {
 			<Route path='/kontakt' element={<Contact></Contact>}></Route>
 			<Route path='/admin' element={<Admin></Admin>}></Route>
 			<Route path='/meddelande' element={<Message></Message>}></Route>
+			<Route path="/behandlingar/:id" element={<BehandlingDetail />} />
 		</Routes>
 	  </HashRouter>
     </div>

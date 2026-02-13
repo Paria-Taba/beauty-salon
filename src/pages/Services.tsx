@@ -30,11 +30,11 @@ function Services() {
 			</div>
 			
 			</div>
-			<div className="div-button">
-				<NavLink to={`/behandlingar/${item._id}`} className="more-btn">
+			
+				<NavLink to={`/behandlingar/${item._id}`} className="div-button">
 			Mer
 			</NavLink>
-			</div>
+			
 			
 			</div>
 		))}
