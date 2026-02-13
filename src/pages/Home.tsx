@@ -4,6 +4,7 @@ import pic1 from "../../public/1.jpeg"
 import pic2 from "../../public/2.jpeg"
 import pic3 from "../../public/3.jpeg"
 import Footer from "../components/Footer.tsx"
+import { NavLink } from "react-router-dom"
 function Home(){
 	return(
 		<div>
@@ -34,7 +35,7 @@ function Home(){
 		</div>
 		<div className="question-div">
 			<p className="p-1">Har du en fråga?</p>
-			<p className="p-2">Skicka oss ett meddelande</p>
+			<NavLink to={"/message"} className="p-2">Skicka oss ett meddelande</NavLink>
 		</div>
 		<Footer></Footer>
 		

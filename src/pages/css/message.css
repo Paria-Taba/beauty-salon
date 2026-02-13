@@ -1,10 +1,16 @@
-.admin-div h2{
+.message-div h2{
 	color: #E6D6B4;
 	font-size: 36px;
 	padding: 30px;
+	padding-bottom: 10px;
 	text-align: center;
 }
-.login-div{
+.send-p{
+	text-align: center;
+	padding: 10px;
+	padding-bottom: 20px;
+}
+.send-div{
 	
   display: flex;
   flex-direction: column;
@@ -18,7 +24,7 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   border: 2px solid #C6A75E;
 }
 
-.login-div input{
+.send-div input, .send-div textarea{
   border: 2px solid #C6A75E;
   margin: 20px;
   border-radius: 10px;
@@ -26,14 +32,16 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   background-color: #F7F1E8;
   width: 100%;
   max-width: 450px;
+   font-family: 'Playfair Display', serif;
 }
-.login-div label {
+
+.send-div label {
   align-self: flex-start;
   margin-left: 10px;
   font-size: 14px;
   color: #2b2008;
 }
-.login-div button{
+.send-div button{
   margin: 20px;
   color: #EBE1CD;
   border-radius: 10px;
@@ -43,31 +51,31 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   transition: all 0.7s ease;
   cursor: pointer;
 }
-.login-div button:hover{
+.send-div button:hover{
   background: linear-gradient(145deg, #C6A75E, #E6D6B4);
   color: #1a1a1a;
   box-shadow: 0 8px 20px rgba(198, 167, 94, 0.35);
 }
+
 @media screen and (max-width:700px){
-	.login-div{
+	.send-div{
 		margin: 0 40px 80px 40px;
 	}
-	.login-div button{
+	.send-div button{
 		margin: 20px 0 20px 0;
 	}
-	.admin-div h2{
+	.message-div h2{
 	
 	font-size: 26px;
-	
 }
-.login-div label {
+.send-div label {
   
   margin-left: 0px;
   
 }
 }
 @media screen and (max-width:400px){
-	.login-div{
+	.send-div{
 		margin: 0 20px 80px 20px;
 	}
 

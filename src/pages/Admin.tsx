@@ -7,8 +7,10 @@ function Admin(){
 			<Header></Header>
 			<h2>Inloggning för administratör</h2>
 			<div className="login-div">
-				<input type="text" placeholder="Ange din e-post"/>
-				<input type="password" placeholder="Ange ditt lösenord" />
+				<label htmlFor="email">E-post :</label>
+				<input id="email" type="text" placeholder="Ange din e-post"/>
+				<label htmlFor="password">Lösenord :</label>
+				<input id="password" type="password" placeholder="Ange ditt lösenord" />
 				<button>Logga in</button>
 			</div>
 			<Footer></Footer>

@@ -65,6 +65,9 @@ h2{
 	margin-bottom: 30px;
 	
 }
+.question-div a{
+	text-decoration: none;
+}
 .p-1{
 	font-size: 24px;
 }
