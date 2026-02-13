@@ -40,8 +40,8 @@ useEffect(() => {
           className={`navbar ${open ? "active" : ""}`}
         >
           <NavLink to="/">Hem</NavLink>
-          <NavLink to="/services">Behandlingar</NavLink>
-          <NavLink to="/contact">Kontakt</NavLink>
+          <NavLink to="/behandlingar">Behandlingar</NavLink>
+          <NavLink to="/kontakt">Kontakt</NavLink>
           <a 
   href="https://www.bokadirekt.se/places/mary7-47193"
   target="_blank"

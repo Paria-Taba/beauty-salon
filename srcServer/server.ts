@@ -4,7 +4,7 @@ dotenv.config()
 import express from "express"
 import cors from "cors"
 import { connectDB } from "./config/db.js"
-import serviceRoutes from "./routes/service.routes.js"
+import serviceRoutes from "./routes/behandling.routes.js"
 
 const app = express()
 console.log("ENV TEST:", process.env.MONGO_URI)
@@ -16,14 +16,7 @@ const port: number = Number(process.env.PORT) || 1337
 
 // Connect MongoDB
 connectDB()
-
-// Test route
-app.get("/api/test", (req, res) => {
-  res.json({ message: "Server fungerar med MongoDB 🚀" })
-})
-
-// Service routes
-app.use("/api/services", serviceRoutes)
+app.use("/api/behandlingar", serviceRoutes)
 
 // Serve frontend build
 app.use(express.static("./dist"))

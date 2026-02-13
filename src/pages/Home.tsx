@@ -35,7 +35,7 @@ function Home(){
 		</div>
 		<div className="question-div">
 			<p className="p-1">Har du en fråga?</p>
-			<NavLink to={"/message"} className="p-2">Skicka oss ett meddelande</NavLink>
+			<NavLink to={"/meddelande"} className="p-2">Skicka oss ett meddelande</NavLink>
 		</div>
 		<Footer></Footer>
 		

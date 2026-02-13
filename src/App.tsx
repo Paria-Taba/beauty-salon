@@ -15,10 +15,10 @@ function App() {
       <HashRouter>
 		<Routes>
 			<Route path='/' element={<Home></Home>}></Route>
-			<Route path='/services' element={<Services></Services>}></Route>
-			<Route path='/contact' element={<Contact></Contact>}></Route>
+			<Route path='/behandlingar' element={<Services></Services>}></Route>
+			<Route path='/kontakt' element={<Contact></Contact>}></Route>
 			<Route path='/admin' element={<Admin></Admin>}></Route>
-			<Route path='/message' element={<Message></Message>}></Route>
+			<Route path='/meddelande' element={<Message></Message>}></Route>
 		</Routes>
 	  </HashRouter>
     </div>
