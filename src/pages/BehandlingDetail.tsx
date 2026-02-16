@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { NavLink, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
@@ -22,13 +22,10 @@ function BehandlingDetail() {
 	  <div className="service-detail-title">
 		 <img src={behandling.icon}  />
       <h1>{behandling.title}</h1>
-
 	  </div>
-
-
-      <div>
+      <div className="services-detail-grid">
         {behandling.services.map((service: any) => (
-  <div key={service._id}>
+  <div key={service._id} className="service-detail-card">
     <h3>{service.name}</h3>
     <p>{service.tid} min</p>
     <p>{service.description}</p>
@@ -36,6 +33,19 @@ function BehandlingDetail() {
   </div>
 ))}
       </div>
+	  <div className="book-div">
+		<NavLink to="/behandlingar" className="back-button">Tillbaka</NavLink>
+			  <a 
+  href="https://www.bokadirekt.se/places/mary7-47193"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="book-button"
+>
+  Boka din behandling
+</a>
+
+	  </div>
+
 
       <Footer />
     </div>
