@@ -48,6 +48,11 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   color: #1a1a1a;
   box-shadow: 0 8px 20px rgba(198, 167, 94, 0.35);
 }
+.error-text {
+  color: red;
+  margin-top: 10px;
+}
+
 @media screen and (max-width:700px){
 	.login-div{
 		margin: 0 40px 80px 40px;
