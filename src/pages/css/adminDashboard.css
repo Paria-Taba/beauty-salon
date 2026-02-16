@@ -1,0 +1,126 @@
+.button-div{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.admin-title{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.button-div button {
+	
+  display: inline-block;
+  margin: 20px;
+  color: #EBE1CD;
+  border-radius: 10px;
+  border: 2px solid #C6A75E;
+  background-color: #2A2A2A;
+  font-size: 18px;
+  padding: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.button-div button:hover {
+	cursor: pointer;
+  background: linear-gradient(145deg, #C6A75E, #E6D6B4);
+  color: #1a1a1a;
+  box-shadow: 0 8px 20px rgba(198, 167, 94, 0.35);
+}
+.services{
+	margin: 20px 60px;
+background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(198, 167, 94, 0.2);
+  border: 2px solid #C6A75E;
+  
+}
+.services h2{
+	color: #5A4632;
+	margin-bottom: 30px;
+}
+.services-title{
+	margin: 20px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	color: #2E2A25;
+	padding: 10px;
+
+}
+.services-title-1{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.services-title img{
+	margin-right: 20px;
+	width: 80px;
+	background-color: white;
+	border-radius: 100%;
+	padding: 10px;
+	  border: 2px solid #C6A75E;
+}
+.dashboard-button button{
+	 display: inline-block;
+  margin: 20px;
+  color: #EBE1CD;
+  border-radius: 10px;
+  border: 2px solid #C6A75E;
+  background-color: #2A2A2A;
+  font-size: 16px;
+  padding: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.dashboard-button button:hover {
+	cursor: pointer;
+  background: linear-gradient(145deg, #C6A75E, #E6D6B4);
+  color: #1a1a1a;
+  box-shadow: 0 8px 20px rgba(198, 167, 94, 0.35);
+}
+@media screen and (max-width:900px){
+.services{
+	margin: 20px;
+}
+
+}
+@media screen and (max-width:768px){
+	.button-div button {
+  margin: 10px;
+ font-size: 16px;
+}
+.services-title img{
+	width: 60px;
+
+}
+.services-title{
+	flex-direction: column;
+}
+.services{
+	margin: 20px 30px;
+	padding: 20px;
+}
+.dashboard-button button{
+	font-size: 14px;
+}
+
+
+}
+@media screen and (max-width:500px){
+	.dashboard-button{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.services{
+		margin: 10px;
+	}
+	.services-title img{
+	width: 40px;
+
+}
+}
