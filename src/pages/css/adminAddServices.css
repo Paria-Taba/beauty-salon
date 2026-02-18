@@ -1,29 +1,21 @@
-.message-div h2{
-	color: #E6D6B4;
-	font-size: 36px;
-	padding: 30px;
-	padding-bottom: 10px;
-	text-align: center;
+.add-service h1{
+	padding-left: 30px;
+	margin-bottom: 50px;
 }
-.send-p{
-	text-align: center;
-	padding: 10px;
-	padding-bottom: 20px;
-}
-.send-div{
+.add-form{
   display: flex;
   flex-direction: column;
   align-items: center;
 background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   padding: 40px;
   border-radius: 20px;
-  max-width: 500px;
-  margin: 0 auto 80px auto;
+  max-width: 60%;
+  margin: 0 auto 50px auto;
   box-shadow: 0 15px 40px rgba(198, 167, 94, 0.2);
   border: 2px solid #C6A75E;
 }
 
-.send-div input, .send-div textarea{
+.add-form input, .add-form textarea{
   border: 2px solid #C6A75E;
   margin: 20px;
   border-radius: 10px;
@@ -34,15 +26,21 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
    font-family: 'Playfair Display', serif;
 }
 
-.send-div label {
+.add-form label {
   align-self: flex-start;
   margin-left: 10px;
   font-size: 14px;
   color: #2b2008;
 }
-.send-div button{
-	margin-top: 30px;
- display: inline-flex;
+.add-button-div {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin: 30px;
+}
+
+.form-btn {
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   width: 180px;
@@ -56,32 +54,23 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   transition: all 0.7s ease;
   cursor: pointer;
 }
-.send-div button:hover{
+
+.form-btn:hover {
   background: linear-gradient(145deg, #C6A75E, #E6D6B4);
   color: #1a1a1a;
   box-shadow: 0 8px 20px rgba(198, 167, 94, 0.35);
 }
 
-@media screen and (max-width:700px){
-	.send-div{
-		margin: 0 40px 80px 40px;
+@media screen and (max-width:768px){
+	.add-form{
+		width: 80%;
 	}
-	.send-div button{
-		margin: 20px 0 20px 0;
-	}
-	.message-div h2{
-	
-	font-size: 26px;
-}
-.send-div label {
-  
-  margin-left: 0px;
-  
-}
-}
-@media screen and (max-width:400px){
-	.send-div{
-		margin: 0 20px 80px 20px;
+	.add-button-div{
+		display: flex;
+		flex-direction: column;
 	}
 
+.add-form label{
+	  margin-left: 0px;
+}
 }

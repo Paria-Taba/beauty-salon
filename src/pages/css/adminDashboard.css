@@ -2,34 +2,37 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	gap: 30px;
 }
 .admin-title{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 20px;
 }
 .button-div button {
-	
-  display: inline-block;
-  margin: 20px;
+    display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  padding: 14px 0;
+  font-size: 16px;
+  text-decoration: none;
   color: #EBE1CD;
   border-radius: 10px;
   border: 2px solid #C6A75E;
   background-color: #2A2A2A;
-  font-size: 18px;
-  padding: 20px;
-  text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.7s ease;
+  cursor: pointer;
 }
 
 .button-div button:hover {
-	cursor: pointer;
   background: linear-gradient(145deg, #C6A75E, #E6D6B4);
   color: #1a1a1a;
   box-shadow: 0 8px 20px rgba(198, 167, 94, 0.35);
 }
 .services{
-	margin: 20px 60px;
+	margin: 50px 60px;
 background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   padding: 40px;
   border-radius: 20px;
@@ -63,7 +66,7 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 	padding: 10px;
 	  border: 2px solid #C6A75E;
 }
-.dashboard-button button{
+.dashboard-button a{
 	 display: inline-block;
   margin: 20px;
   color: #EBE1CD;
@@ -75,7 +78,7 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   text-decoration: none;
   transition: all 0.3s ease;
 }
-.dashboard-button button:hover {
+.dashboard-button a:hover {
 	cursor: pointer;
   background: linear-gradient(145deg, #C6A75E, #E6D6B4);
   color: #1a1a1a;
@@ -89,9 +92,9 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 	align-items: center;
 	margin: 30px;
 }
-.add-services button{
+.add-services a{
   display: inline-block;
-  margin: 20px;
+  margin: 10px;
   color: #EBE1CD;
   border-radius: 10px;
   border: 2px solid #C6A75E;
@@ -102,7 +105,7 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   transition: all 0.3s ease;
 }
 
-.add-services button:hover {
+.add-services a:hover {
 	cursor: pointer;
   background: linear-gradient(145deg, #C6A75E, #E6D6B4);
   color: #1a1a1a;
@@ -134,7 +137,7 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 	margin: 20px 30px;
 	padding: 20px;
 }
-.dashboard-button button{
+.dashboard-button a{
 	font-size: 14px;
 }
 
@@ -154,8 +157,20 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 	width: 40px;
 
 }
-.add-services button{
+.add-services a{
 	font-size: 16px;
+	padding: 15px;
 	margin: 0;
+}
+.services-title{
+	margin: 20px 5px;
+}
+.button-div{
+	gap: 5px;
+	margin-right: 10px ;
+	margin-left: 10px;
+}
+.admin-title h1{
+	padding-left: 0;
 }
 }

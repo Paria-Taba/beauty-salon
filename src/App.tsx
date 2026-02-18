@@ -8,6 +8,8 @@ import Admin from "./pages/Admin"
 import Message from './pages/Message'
 import BehandlingDetail from './pages/BehandlingDetail'
 import AdminDahboard from './pages/AdminDashboard'
+import AdminAddSevices from './pages/AdminAddServices'
+import AdminEditServices from './pages/AdminEditServices'
 
 function App() {
   
@@ -22,7 +24,9 @@ function App() {
 			<Route path='/admin' element={<Admin></Admin>}></Route>
 			<Route path='/meddelande' element={<Message></Message>}></Route>
 			<Route path="/behandlingar/:id" element={<BehandlingDetail />} />
-				<Route path="/admin/dashboard" element={<AdminDahboard/>} />
+				<Route path="/admin/oversikt" element={<AdminDahboard/>} />
+				<Route path="/admin/lagg-till-behandling" element={<AdminAddSevices/>} />
+				<Route path="/admin/redigera-behandling/:id" element={<AdminEditServices/>} />
 		</Routes>
 	  </HashRouter>
     </div>

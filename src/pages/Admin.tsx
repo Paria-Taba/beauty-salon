@@ -42,7 +42,7 @@ function Admin() {
 
       localStorage.setItem("token", data.token)
 
-      navigate("/admin/dashboard")
+      navigate("/admin/oversikt")
 
     } catch (err) {
       setError("Serverfel. Försök igen.")

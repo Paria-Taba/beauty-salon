@@ -2,6 +2,7 @@ import "../pages/css/adminDashboard.css"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { useEffect, useState } from "react"
+import { NavLink } from "react-router-dom"
 
 function AdminDashboard() {
   const [behandlingar, setBehandlingar] = useState<any[]>([])
@@ -20,7 +21,7 @@ function AdminDashboard() {
 
       <div className="dashboard-div">
         <div className="admin-title">
-          <h1>Admin dashboard</h1>
+          <h1>Adminöversikt</h1>
         </div>
 
         {/* TAB BUTTONS */}
@@ -58,15 +59,15 @@ function AdminDashboard() {
                     </div>
 
                     <div className="dashboard-button">
-                      <button>Redigera</button>
-                      <button>Ta bort</button>
+                      <NavLink to={"/admin/redigera-behandling/:id"}>Redigera</NavLink>
+                      <NavLink to={""}>Ta bort</NavLink>
                     </div>
 				
                   </div>
                 ))
               )}
 			  <div className="add-services">
-						<button>Lägg till tjänster</button>
+						<NavLink to={"/admin/lagg-till-behandling"}>Lägg till behandling</NavLink>
 					</div>
 			  
             </>
