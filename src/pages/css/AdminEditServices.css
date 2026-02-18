@@ -1,3 +1,21 @@
+button{
+	 display: inline-block;
+  margin: 20px;
+  color: #EBE1CD;
+  border-radius: 10px;
+  border: 2px solid #C6A75E;
+  background-color: #2A2A2A;
+  font-size: 16px;
+  padding: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+button:hover{
+	cursor: pointer;
+  background: linear-gradient(145deg, #C6A75E, #E6D6B4);
+  color: #1a1a1a;
+  box-shadow: 0 8px 20px rgba(198, 167, 94, 0.35);
+}
 .edit-service h1{
 	padding-left: 30px;
 	margin-bottom: 50px;
@@ -5,7 +23,7 @@
 h2{
 	color: #5A4632;
 	margin-bottom: 30px;
-	border-bottom: 2px solid #5A4632 ;
+	
 }
 .edit-form{
   display: flex;
@@ -76,6 +94,24 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   box-shadow: 0 15px 40px rgba(198, 167, 94, 0.2);
   border: 2px solid #C6A75E;
 }
+.edit-services-detail{
+	
+	color: #2E2A25;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+.title-edit{
+	color: #5A4632;
+	font-size: 20px;
+	font-weight: bold;
+}
+.edit-services-detail>*{
+	margin: 30px;	
+	padding: 20px;
+	background: linear-gradient(145deg, #F3ECE2, #fbe4b2);
+	border: 2px solid #C6A75E;
+	border-radius: 20px;
+}
 @media screen and (max-width:768px){
 	.edit-form{
 		width: 80%;
@@ -87,5 +123,14 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 
 .edit-form label{
 	  margin-left: 0px;
+}
+.edit-services-detail{
+	
+	color: #2E2A25;
+	display: grid;
+	grid-template-columns: 1fr;
+}
+.edit-services-detail>*{
+	margin: 10px;
 }
 }

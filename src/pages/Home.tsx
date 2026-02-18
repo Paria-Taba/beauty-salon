@@ -11,7 +11,7 @@ function Home(){
 		<Header></Header>
 		<div className="title-div">
 		<h1>Mary 7</h1>
-		<h2>Skönhet & Välbefinnande</h2>
+		<h2 className="title-home">Skönhet & Välbefinnande</h2>
 		</div>
 
 		<div className="home-main-div">

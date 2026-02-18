@@ -4,8 +4,24 @@ import Footer from "../components/Footer"
 import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 
+interface Service {
+  _id: string
+  name: string
+  price: number
+  description: string
+  tid: number
+}
+
+interface Behandling {
+  _id: string
+  title: string
+  description: string
+  icon: string
+  services: Service[]
+}
+
 function AdminDashboard() {
-  const [behandlingar, setBehandlingar] = useState<any[]>([])
+  const [behandlingar, setBehandlingar] = useState<Behandling[]>([])
   const [activeTab, setActiveTab] = useState<"tjanster" | "meddelanden">("tjanster")
 
   useEffect(() => {
@@ -15,16 +31,28 @@ function AdminDashboard() {
       .catch(err => console.error(err))
   }, [])
 
+  const handleDelete = async (id: string) => {
+    if (!window.confirm("Är du säker att du vill ta bort denna behandling?")) return
+
+    try {
+      await fetch(`/api/behandlingar/${id}`, { method: "DELETE" })
+
+      setBehandlingar(prev => prev.filter(item => item._id !== id))
+    } catch (error) {
+      console.error(error)
+      alert("Kunde inte ta bort ❌")
+    }
+  }
+
   return (
     <div>
       <Header />
 
       <div className="dashboard-div">
         <div className="admin-title">
-          <h1>Adminöversikt</h1>
+          <h1>Administrationspanel</h1>
         </div>
 
-        {/* TAB BUTTONS */}
         <div className="button-div">
           <button
             className={activeTab === "tjanster" ? "active" : ""}
@@ -41,15 +69,13 @@ function AdminDashboard() {
           </button>
         </div>
 
-        {/* CONTENT */}
         <div className="services">
-
           {activeTab === "tjanster" && (
             <>
-              <h2>Tjänster</h2>
+              <h2>Behandlingar</h2>
 
               {behandlingar.length === 0 ? (
-                <p>Inga tjänster hittades.</p>
+                <p>Inga behandlingar hittades.</p>
               ) : (
                 behandlingar.map((item) => (
                   <div key={item._id} className="services-title">
@@ -59,17 +85,23 @@ function AdminDashboard() {
                     </div>
 
                     <div className="dashboard-button">
-                      <NavLink to={"/admin/redigera-behandling/:id"}>Redigera</NavLink>
-                      <NavLink to={""}>Ta bort</NavLink>
+                      <NavLink to={`/admin/redigera-behandling/${item._id}`}>
+                        Redigera
+                      </NavLink>
+
+                      <button onClick={() => handleDelete(item._id)}>
+                        Ta bort
+                      </button>
                     </div>
-				
                   </div>
                 ))
               )}
-			  <div className="add-services">
-						<NavLink to={"/admin/lagg-till-behandling"}>Lägg till behandling</NavLink>
-					</div>
-			  
+
+              <div className="add-services">
+                <NavLink to="/admin/lagg-till-behandling">
+                  Lägg till behandling
+                </NavLink>
+              </div>
             </>
           )}
 
@@ -79,10 +111,8 @@ function AdminDashboard() {
               <p>Här visas inkommande meddelanden...</p>
             </>
           )}
-
         </div>
       </div>
-	  	
 
       <Footer />
     </div>
