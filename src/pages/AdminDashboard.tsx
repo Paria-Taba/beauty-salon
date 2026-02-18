@@ -61,9 +61,14 @@ function AdminDashboard() {
                       <button>Redigera</button>
                       <button>Ta bort</button>
                     </div>
+				
                   </div>
                 ))
               )}
+			  <div className="add-services">
+						<button>Lägg till tjänster</button>
+					</div>
+			  
             </>
           )}
 
@@ -76,6 +81,7 @@ function AdminDashboard() {
 
         </div>
       </div>
+	  	
 
       <Footer />
     </div>
