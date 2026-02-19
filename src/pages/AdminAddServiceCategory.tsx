@@ -36,17 +36,35 @@ function AdminAddServiceCategory() {
       })
   }, [id])
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
 
-    await fetch(`/api/behandlingar/${id}/services`, {
+  const token = localStorage.getItem("token")
+
+  try {
+    const res = await fetch(`/api/behandlingar/${id}/services`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(service)
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        name: service.name,
+        description: service.description,
+        price: Number(service.price),
+        tid: Number(service.tid)
+      })
     })
 
+    if (!res.ok) throw new Error()
+
     navigate(`/admin/redigera-behandling/${id}`)
+
+  } catch (error) {
+    alert("Kunde inte lägga till tjänst")
   }
+}
+
 
   if (loading) return <p>Laddar...</p>
   if (!behandling) return <p>Kunde inte hitta kategorin</p>
@@ -99,9 +117,7 @@ function AdminAddServiceCategory() {
         />
 
         <div className="add-button-div">
-          <button type="submit" className="form-btn">
-            Spara
-          </button>
+        
 
           <NavLink
             to={`/admin/oversikt`}
@@ -109,6 +125,9 @@ function AdminAddServiceCategory() {
           >
             Avbryt
           </NavLink>
+		    <button type="submit" className="form-btn">
+            Spara
+          </button>
         </div>
       </form>
 

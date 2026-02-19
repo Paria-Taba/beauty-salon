@@ -27,6 +27,9 @@ function AdminEditServices() {
 
   const [behandling, setBehandling] = useState<Behandling | null>(null)
   const [loading, setLoading] = useState(true)
+  const [deleteId, setDeleteId] = useState<string | null>(null)
+
+
 
   useEffect(() => {
     fetch(`/api/behandlingar/${id}`)
@@ -42,43 +45,76 @@ function AdminEditServices() {
   }, [id])
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!behandling) return
+  e.preventDefault()
+  if (!behandling) return
 
-    try {
-      const res = await fetch(`/api/behandlingar/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: behandling.title,
-          description: behandling.description,
-          icon: behandling.icon
-        })
+  try {
+    const res = await fetch(`/api/behandlingar/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({
+        title: behandling.title,
+        description: behandling.description,
+        icon: behandling.icon
       })
+    })
 
-      if (!res.ok) throw new Error()
-
-      alert("Ändringar sparade ✅")
-      navigate("/admin/oversikt")
-
-    } catch {
-      alert("Kunde inte spara ❌")
+    if (!res.ok) {
+      const errorData = await res.json()
+      throw new Error(errorData.error || "Fel vid uppdatering")
     }
+
+    const updated = await res.json()
+
+
+    setBehandling(updated)
+navigate("/admin/oversikt")
+
+
+  } catch (error: any) {
+    alert(error.message || "Kunde inte spara ❌")
   }
+}
 
-  const handleDeleteService = async (serviceId: string) => {
-    if (!behandling) return
 
-    await fetch(
-      `/api/behandlingar/${behandling._id}/services/${serviceId}`,
-      { method: "DELETE" }
+ const confirmDelete = async () => {
+  if (!deleteId) return
+
+  const token = localStorage.getItem("token")
+
+  try {
+    const res = await fetch(
+      `/api/behandlingar/${behandling?._id}/services/${deleteId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }
     )
 
-    setBehandling({
-      ...behandling,
-      services: behandling.services.filter(s => s._id !== serviceId)
-    })
+    if (!res.ok) throw new Error()
+
+    setBehandling(prev =>
+      prev
+        ? {
+            ...prev,
+            services: prev.services.filter(s => s._id !== deleteId)
+          }
+        : prev
+    )
+
+    setDeleteId(null)
+
+  } catch (error) {
+    alert("Kunde inte ta bort tjänst ❌")
   }
+}
+
+
 
   if (loading) return <p>Laddar...</p>
   if (!behandling) return <p>Ingen behandling hittades</p>
@@ -144,9 +180,9 @@ function AdminEditServices() {
 
               <div className="delete-button">
             
-                <button onClick={() => handleDeleteService(service._id)}>
-                  Ta bort
-                </button>
+        <button onClick={() => setDeleteId(service._id)}>
+  Ta bort
+</button>
               </div>
             </div>
           ))
@@ -162,6 +198,31 @@ function AdminEditServices() {
 
        
       </div>
+	  {/* MODAL */}
+{deleteId && (
+  <div className="modal-overlay">
+    <div className="modal-box">
+      <h3>Ta bort tjänst?</h3>
+      <p>
+        Är du säker på att du vill ta bort denna tjänst?
+      </p>
+
+      <div className="modal-buttons">
+        <button
+          onClick={confirmDelete}
+          className="danger-btn"
+        >
+          Ja, ta bort
+        </button>
+
+        <button onClick={() => setDeleteId(null)}>
+          Avbryt
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
 
       <Footer />
     </div>

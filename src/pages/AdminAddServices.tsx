@@ -36,7 +36,7 @@ function AdminAddSevices() {
     navigate("/admin/oversikt")
 
   } catch (error) {
-    alert("Kunde inte skapa behandling")
+   alert("Vänligen fyll i alla fält")
   }
 }
 
