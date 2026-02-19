@@ -12,7 +12,7 @@ function Contact(){
 				<div className="contact-image">
 					<img src={salonImage} alt="Bild av skönhetssalongen" />
 				</div>
-				<div>
+				<div className="title-contact">
 					<h2>🕘 Öppettider</h2>
 					<p>Måndag: 10:00–18:00</p>
 					<p>Tisdag: 10:00–18:00</p>
@@ -25,7 +25,7 @@ function Contact(){
 			</div>
 			<div className="contact-div">
 				
-				<div>
+				<div className="title-contact">
 					<h2>📍 Kontaktinformation</h2>
 					<p>Telefon: 📞 073-977 57 55</p>
 					<p>Adress: 📍 Lergöksgatan 1M, Frölunda, Sverige</p>

@@ -41,7 +41,7 @@ margin: 40px;
 }
 .book-button {
   display: inline-block;
-  margin: 20px;
+  margin: 30px 10px;
   color: #EBE1CD;
   border-radius: 10px;
   border: 2px solid #C6A75E;
@@ -50,6 +50,10 @@ margin: 40px;
   padding: 20px;
   text-decoration: none;
   transition: all 0.3s ease;
+}
+.span-detail{
+	font-weight: bold;
+	color: rgb(159, 117, 78)
 }
 
 .book-button:hover {

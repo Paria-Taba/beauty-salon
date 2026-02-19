@@ -27,9 +27,9 @@ function BehandlingDetail() {
         {behandling.services.map((service: any) => (
   <div key={service._id} className="service-detail-card">
     <h3>{service.name}</h3>
-    <p>{service.tid} min</p>
-    <p>{service.description}</p>
-    <p>{service.price} SEK</p>
+    <p><span className="span-detail">Behandlingstid: </span>{service.tid} min</p>
+    <p>✦ {service.description}</p>
+    <p><span className="span-detail">pris: </span>{service.price} SEK</p>
   </div>
 ))}
       </div>

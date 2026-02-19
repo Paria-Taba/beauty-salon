@@ -1,6 +1,9 @@
 h1{
 	padding-left: 30px;
 }
+.title-contact h2{
+	color: #CDAA8C;
+}
 .contact-div{
 	display: grid;
 	grid-template-columns: 1fr 1fr;

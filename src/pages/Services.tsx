@@ -26,7 +26,7 @@ function Services() {
 			
 			<div className="card-text"> 
 				 <p className="card-title">{item.title}</p>  
-				  <p className="card-des">{item.description}</p>
+				  <p className="card-des">✦ {item.description}</p>
 			</div>
 			
 			</div>
