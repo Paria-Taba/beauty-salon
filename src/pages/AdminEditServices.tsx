@@ -128,7 +128,7 @@ function AdminEditServices() {
 </form>
 
       <div className="service-category">
-        <h2>Behandlingar i denna kategori</h2>
+        <h2>Tjänster i {behandling.title}</h2>
 		<div className="edit-services-detail">
 			 {behandling.services.length === 0 ? (
           <p>Inga tjänster ännu</p>
@@ -136,9 +136,10 @@ function AdminEditServices() {
           behandling.services.map(service => (
             <div key={service._id} className="service-row">
               <div>
-                <p><span className="title-edit">Behandlingens namn:</span> {service.name}</p>
+                <p><span className="title-edit">Namn:</span> {service.name}</p>
                 <p><span className="title-edit">Pris :</span> {service.price} kr</p>
                 <p><span className="title-edit">Behandlingstid :</span> {service.tid} min</p>
+				  <p><span className="title-edit">Beskrivning :</span> {service.description} min</p>
               </div>
 
               <div className="delete-button">
@@ -153,7 +154,9 @@ function AdminEditServices() {
 		</div>
 		<div className="add-service-category">
 			<NavLink to={"/admin/oversikt"}>Tillbaka</NavLink>
-			<button> Lägg till behandling i kategorin ➕</button>
+			<NavLink to={`/admin/behandlingar/${behandling._id}/lagg-till-tjanst`}>
+  Lägg till ny tjänst ➕
+</NavLink>
 			
 		</div>
 
