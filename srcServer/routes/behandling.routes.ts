@@ -1,10 +1,11 @@
 import express from "express"
 import { Behandling } from "../models/behandling.model.js"
+import { verifyToken } from "../middleware/auth.middleware.js"
 
 const router = express.Router()
 
 
-router.post("/", async (req, res) => {
+router.post("/",verifyToken, async (req, res) => {
   try {
     const behandling = await Behandling.create(req.body)
     res.status(201).json(behandling)
@@ -33,7 +34,7 @@ router.get("/:id", async (req, res) => {
   }
 })
 // DELETE CATEGORY
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",verifyToken, async (req, res) => {
   try {
     const deletedBehandling = await Behandling.findByIdAndDelete(req.params.id)
 
@@ -47,7 +48,7 @@ router.delete("/:id", async (req, res) => {
   }
 })
 
-router.post("/:id/behandlingar", async (req, res) => {
+router.post("/:id/behandlingar",verifyToken, async (req, res) => {
   try {
     const behandling = await Behandling.findById(req.params.id)
 

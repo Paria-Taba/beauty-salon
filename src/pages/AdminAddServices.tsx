@@ -14,28 +14,32 @@ function AdminAddSevices() {
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  e.preventDefault()
 
-    try {
-      const res = await fetch("/api/behandlingar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          ...behandling,
-          services: []   
-        })
+  try {
+    const token = localStorage.getItem("token")
+
+    const res = await fetch("/api/behandlingar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        ...behandling,
+        services: []
       })
+    })
 
-      if (!res.ok) throw new Error()
+    if (!res.ok) throw new Error()
 
-      navigate("/admin/oversikt")
+    navigate("/admin/oversikt")
 
-    } catch (error) {
-      alert("Kunde inte skapa behandling")
-    }
+  } catch (error) {
+    alert("Kunde inte skapa behandling")
   }
+}
+
 
   return (
     <div className="add-service">
