@@ -34,12 +34,14 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 }
 .add-button-div {
   display: flex;
-  gap: 30px;
+  gap: 20px;
   justify-content: center;
   margin: 30px;
 }
 
+
 .form-btn {
+
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -51,14 +53,19 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   border-radius: 10px;
   border: 2px solid #C6A75E;
   background-color: #2A2A2A;
-  transition: all 0.7s ease;
   cursor: pointer;
 }
+
 
 .form-btn:hover {
   background: linear-gradient(145deg, #C6A75E, #E6D6B4);
   color: #1a1a1a;
   box-shadow: 0 8px 20px rgba(198, 167, 94, 0.35);
+}
+.cancel-btn{
+	width: 180px;
+	height: 20px;
+	margin-top: 19px;
 }
 
 @media screen and (max-width:768px){
@@ -66,8 +73,13 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 		width: 80%;
 	}
 	.add-button-div{
+		margin: 5px;
+		gap: 0;
 		display: flex;
 		flex-direction: column;
+	}
+	.cancel-btn{
+		margin-left: 18px;
 	}
 
 .add-form label{

@@ -8,8 +8,8 @@ function AdminAddSevices(){
 			<Header></Header>
 			<h1>Lägg till ny behandling</h1>
 			<form className="add-form">
-				<label htmlFor="title">Behandlingskategori : </label>
-				<input type="text" name="title" id="title" placeholder="Skriv behandlingens kategori..."/>
+				<label htmlFor="title">Namn på kategori : </label>
+				<input type="text" name="title" id="title" placeholder="Ange kategoriens namn..."/>
 				<label htmlFor="icon">Ikon (URL) :</label>
 				<input type="text" name="icon" id="icon" placeholder="https://..."/>
 				  <label htmlFor="description">Beskrivning :</label>

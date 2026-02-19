@@ -3,6 +3,7 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 interface Service {
   _id: string
@@ -89,40 +90,45 @@ function AdminEditServices() {
       <h1>Redigera behandling</h1>
 
       <form className="edit-form" onSubmit={handleSubmit}>
-        <h2>Information om kategorin</h2>
+  <h2>Information om kategorin</h2>
 
-        <label>Titel</label>
-        <input
-          type="text"
-          value={behandling.title}
-          onChange={(e) =>
-            setBehandling({ ...behandling, title: e.target.value })
-          }
-        />
+  <label>Titel</label>
+  <input
+    type="text"
+    value={behandling.title}
+    onChange={(e) =>
+      setBehandling({ ...behandling, title: e.target.value })
+    }
+  />
 
-        <label>Ikon (URL)</label>
-        <input
-          type="text"
-          value={behandling.icon}
-          onChange={(e) =>
-            setBehandling({ ...behandling, icon: e.target.value })
-          }
-        />
+  <label>Ikon (URL)</label>
+  <div className="service-icon-div">
+    <input
+      type="text"
+      value={behandling.icon}
+      onChange={(e) =>
+        setBehandling({ ...behandling, icon: e.target.value })
+      }
+    />
+    {behandling.icon && (
+      <img src={behandling.icon} alt="ikon preview" />
+    )}
+  </div>
 
-        <label>Beskrivning</label>
-        <textarea
-          rows={6}
-          value={behandling.description}
-          onChange={(e) =>
-            setBehandling({ ...behandling, description: e.target.value })
-          }
-        />
+  <label>Beskrivning</label>
+  <textarea
+    rows={6}
+    value={behandling.description}
+    onChange={(e) =>
+      setBehandling({ ...behandling, description: e.target.value })
+    }
+  />
 
-        <button type="submit">Spara ändringar</button>
-      </form>
+  <button type="submit">Spara ändringar</button>
+</form>
 
       <div className="service-category">
-        <h2>Tjänster i denna kategori</h2>
+        <h2>Behandlingar i denna kategori</h2>
 		<div className="edit-services-detail">
 			 {behandling.services.length === 0 ? (
           <p>Inga tjänster ännu</p>
@@ -135,7 +141,7 @@ function AdminEditServices() {
                 <p><span className="title-edit">Behandlingstid :</span> {service.tid} min</p>
               </div>
 
-              <div>
+              <div className="delete-button">
             
                 <button onClick={() => handleDeleteService(service._id)}>
                   Ta bort
@@ -144,6 +150,11 @@ function AdminEditServices() {
             </div>
           ))
         )}
+		</div>
+		<div className="add-service-category">
+			<NavLink to={"/admin/oversikt"}>Tillbaka</NavLink>
+			<button> Lägg till behandling i kategorin ➕</button>
+			
 		</div>
 
        

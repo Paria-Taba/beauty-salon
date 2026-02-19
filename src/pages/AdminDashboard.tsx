@@ -99,7 +99,7 @@ function AdminDashboard() {
 
               <div className="add-services">
                 <NavLink to="/admin/lagg-till-behandling">
-                  Lägg till behandling
+                  Lägg till behandling ➕
                 </NavLink>
               </div>
             </>
