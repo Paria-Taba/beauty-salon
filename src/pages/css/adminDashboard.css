@@ -131,6 +131,44 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 }
 
 
+.modal-overlay {
+	color: #1a1a1a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+}
+
+.modal-box { 
+	margin: 30px;
+  border: 2px solid #C6A75E;
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.danger-btn {
+  background: #8B0000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
 
 
 @media screen and (max-width:900px){
@@ -191,42 +229,7 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 .admin-title h1{
 	padding-left: 0;
 }
+.modal-box{
+	padding: 10px;
 }
-.modal-overlay {
-	color: #1a1a1a;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-
-}
-
-.modal-box { 
-  border: 2px solid #C6A75E;
-  background: white;
-  padding: 40px;
-  border-radius: 10px;
-  width: 350px;
-  text-align: center;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-}
-
-.modal-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.danger-btn {
-  background: #8B0000;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
 }
