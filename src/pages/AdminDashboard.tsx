@@ -23,6 +23,7 @@ interface Behandling {
 function AdminDashboard() {
   const [behandlingar, setBehandlingar] = useState<Behandling[]>([])
   const [activeTab, setActiveTab] = useState<"tjanster" | "meddelanden">("tjanster")
+  const [deleteId, setDeleteId] = useState<string | null>(null)
 
   useEffect(() => {
     fetch("/api/behandlingar")
@@ -30,18 +31,23 @@ function AdminDashboard() {
       .then(data => setBehandlingar(data))
       .catch(err => console.error(err))
   }, [])
+const confirmDelete = async () => {
+    if (!deleteId) return
 
-  const handleDelete = async (id: string) => {
-    if (!window.confirm("Är du säker att du vill ta bort denna behandling?")) return
+    const res = await fetch(`/api/behandlingar/${deleteId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
 
-    try {
-      await fetch(`/api/behandlingar/${id}`, { method: "DELETE" })
-
-      setBehandlingar(prev => prev.filter(item => item._id !== id))
-    } catch (error) {
-      console.error(error)
-      alert("Kunde inte ta bort ❌")
+    if (res.ok) {
+      setBehandlingar(prev =>
+        prev.filter(b => b._id !== deleteId)
+      )
     }
+
+    setDeleteId(null)
   }
 
   return (
@@ -89,9 +95,12 @@ function AdminDashboard() {
                         Redigera
                       </NavLink>
 
-                      <button onClick={() => handleDelete(item._id)}>
-                        Ta bort
-                      </button>
+                <button
+  onClick={() => setDeleteId(item._id)}
+  className="delete-btn"
+>
+  Ta bort
+</button>
                     </div>
                   </div>
                 ))
@@ -113,6 +122,31 @@ function AdminDashboard() {
           )}
         </div>
       </div>
+	   {/* MODAL */}
+      {deleteId && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <h3>Ta bort behandling?</h3>
+            <p>
+              Är du säker på att du vill ta bort denna behandling?
+            </p>
+
+            <div className="modal-buttons">
+              <button
+                onClick={confirmDelete}
+                className="danger-btn"
+              >
+                Ja, ta bort
+              </button>
+
+              <button onClick={() => setDeleteId(null)}>
+                Avbryt
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
       <Footer />
     </div>

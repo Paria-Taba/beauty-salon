@@ -3,7 +3,7 @@ import { Behandling } from "../models/behandling.model.js"
 
 const router = express.Router()
 
-// CREATE CATEGORY (مثلاً Hårfärg)
+
 router.post("/", async (req, res) => {
   try {
     const behandling = await Behandling.create(req.body)
@@ -32,6 +32,21 @@ router.get("/:id", async (req, res) => {
     res.status(404).json({ error: "Behandling hittades inte" })
   }
 })
+// DELETE CATEGORY
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedBehandling = await Behandling.findByIdAndDelete(req.params.id)
+
+    if (!deletedBehandling) {
+      return res.status(404).json({ error: "Behandling hittades inte" })
+    }
+
+    res.json({ message: "Behandling borttagen" })
+  } catch (error) {
+    res.status(500).json({ error: "Kunde inte ta bort behandling" })
+  }
+})
+
 router.post("/:id/behandlingar", async (req, res) => {
   try {
     const behandling = await Behandling.findById(req.params.id)
@@ -48,5 +63,6 @@ router.post("/:id/behandlingar", async (req, res) => {
     res.status(400).json({ error: "Kunde inte lägga till service" })
   }
 })
+
 
 export default router
