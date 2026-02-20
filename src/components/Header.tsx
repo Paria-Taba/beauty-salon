@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import "../components/css/header.css"
-import logo from "../../public/logo.png"
 import { NavLink } from "react-router-dom"
-import menuIcon from "../../public/menu.png"
 
 function Header() {
   const [open, setOpen] = useState(false)
@@ -32,7 +30,7 @@ useEffect(() => {
     <div>
       <div className="header">
         <div className="header-logo">
-          <img src={logo} alt="Logo-beauty-salon" />
+          <img src="/logo.png" alt="Logo-beauty-salon" />
         </div>
 
         <div
@@ -52,7 +50,7 @@ useEffect(() => {
         </div>
 
         <div className="hamburger" onClick={() => setOpen(!open)}>
-          <img src={menuIcon} alt="menu" />
+          <img src="/menu.png" alt="menu" />
         </div>
       </div>
 

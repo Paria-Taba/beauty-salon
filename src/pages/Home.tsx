@@ -1,8 +1,5 @@
 import Header from "../components/Header"
 import "../pages/css/home.css"
-import pic1 from "../../public/1.jpeg"
-import pic2 from "../../public/2.jpeg"
-import pic3 from "../../public/3.jpeg"
 import Footer from "../components/Footer.tsx"
 import { NavLink } from "react-router-dom"
 function Home(){
@@ -16,9 +13,9 @@ function Home(){
 
 		<div className="home-main-div">
 			<div className="div-image">
-				<img src={pic1} alt="Bild av skönhetssalongen" />
-				<img src={pic2} alt="Bild av skönhetssalongen" />
-				<img src={pic3} alt="Bild av skönhetssalongen" />
+				<img src="./1.jpeg" alt="Bild av skönhetssalongen" />
+				<img src="./2.jpeg" alt="Bild av skönhetssalongen" />
+				<img src="./3.jpeg" alt="Bild av skönhetssalongen" />
 			</div>
 			<div className="div-main">
 				<p>Med många års erfarenhet skapar vi skönhet med passion och precision</p>

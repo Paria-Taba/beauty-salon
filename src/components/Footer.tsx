@@ -1,6 +1,5 @@
 import "../components/css/footer.css"
 import "../components/css/header.css"
-import logo from "../../public/logo.png"
 import { NavLink } from "react-router-dom"
 function Footer(){
 	return(
@@ -26,7 +25,7 @@ function Footer(){
 		<div className="login-footer">
 				<NavLink to={"/admin"}>Inloggning för ägare</NavLink>
 			<div className="header-logo">
-          <img src={logo} alt="Logo-beauty-salon" />
+          <img src="./logo.png" alt="Logo-beauty-salon" />
         </div>
 	
 		</div>

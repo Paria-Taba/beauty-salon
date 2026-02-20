@@ -41,6 +41,7 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   
 }
 .services h2{
+	margin-top: 0px;
 	color: #5A4632;
 	margin-bottom: 30px;
 }

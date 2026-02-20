@@ -1,8 +1,8 @@
 import "../pages/css/contact.css"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
-import salonImage from "../../public/5.jpeg"
-import salonImage1 from "../../public/7.jpeg"
+
+
 function Contact(){
 	return(
 		<div >
@@ -10,7 +10,7 @@ function Contact(){
 			<h1>Kontakt</h1>
 			<div className="contact-div contact-reverse">
 				<div className="contact-image">
-					<img src={salonImage} alt="Bild av skönhetssalongen" />
+					<img src='/5.jpeg' alt="Bild av skönhetssalongen" />
 				</div>
 				<div className="title-contact">
 					<h2>🕘 Öppettider</h2>
@@ -41,7 +41,7 @@ function Contact(){
 				
 				</div>
 				<div className="contact1-image">
-					<img src={salonImage1} alt="Bild av skönhetssalongen" />
+					<img src="./7.jpeg" alt="Bild av skönhetssalongen" />
 				</div>
 			</div>
 			<Footer></Footer>
