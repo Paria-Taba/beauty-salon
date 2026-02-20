@@ -169,7 +169,9 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   padding: 10px 20px;
   border-radius: 8px;
 }
+
 .message-card {
+	
 	color: black;
   background: #F3ECE2;
   border: 2px solid #C6A75E;
@@ -178,17 +180,22 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   border-radius: 15px;
 }
 
+
 .date-text {
 	margin-top: 10px;
   font-size: 14px;
   color: #777;
 }
-
+.message-btn{
+	display: flex;
+	justify-content: center;
+}
 
 @media screen and (max-width:900px){
 .services{
 	margin: 20px;
 }
+
 
 }
 @media screen and (max-width:768px){
@@ -247,4 +254,15 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 .modal-box{
 	padding: 10px;
 }
+}
+@media screen and (max-width:600px){
+	.message-btn button{
+		margin: 10px;
+		font-size: 14px;
+		padding: 15px;
+	}
+	.message-card{
+		margin: 20px 10px;
+		padding: 10px;
+	}
 }

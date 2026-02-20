@@ -183,13 +183,19 @@ function AdminDashboard() {
                 ) : (
                   messages.map(msg => (
                     <div key={msg._id} className="message-card">
-                      <p><strong>E-post:</strong> {msg.email}</p>
-                      <p><strong>Meddelande:</strong> {msg.text}</p>
+					
+						<p><strong>E-post:</strong> {msg.email}</p>
+						
+						<p><strong>Meddelande:</strong> {msg.text}</p>
                       <p className="date-text">
                         {new Date(msg.createdAt).toLocaleDateString("sv-SE")} 
   {"  |  "}
   {new Date(msg.createdAt).toLocaleTimeString("sv-SE")}
                       </p>
+                     <div className="message-btn">
+							<button >Svara</button>
+                            <button >Ta bort</button>
+						</div>
                     </div>
                   ))
                 )
