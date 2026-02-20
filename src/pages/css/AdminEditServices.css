@@ -102,6 +102,7 @@ button:hover {
 }
 
 .edit-services-detail {
+	
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
@@ -110,7 +111,7 @@ button:hover {
 
 .edit-services-detail > * {
   padding: 20px;
-  background: linear-gradient(145deg, #F3ECE2, #fbe4b2);
+   background: #F3ECE2;
   border: 2px solid #C6A75E;
   border-radius: 20px;
 }

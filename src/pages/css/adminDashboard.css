@@ -169,6 +169,20 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
   padding: 10px 20px;
   border-radius: 8px;
 }
+.message-card {
+	color: black;
+  background: #F3ECE2;
+  border: 2px solid #C6A75E;
+  padding: 20px;
+  margin: 20px 60px;
+  border-radius: 15px;
+}
+
+.date-text {
+	margin-top: 10px;
+  font-size: 14px;
+  color: #777;
+}
 
 
 @media screen and (max-width:900px){
@@ -199,6 +213,7 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 
 
 }
+
 @media screen and (max-width:500px){
 	.dashboard-button{
 		display: flex;

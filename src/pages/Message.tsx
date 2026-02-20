@@ -44,7 +44,7 @@ function Message() {
       setText("")
 
     } catch (err: any) {
-      setError(err.message || "Kunde inte skicka meddelandet")
+      setError("Något gick fel. Försök igen om en stund.")
     }
   }
 

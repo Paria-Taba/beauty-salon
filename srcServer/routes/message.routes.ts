@@ -1,5 +1,6 @@
 import express from "express"
 import { Message } from "../models/message.model.js"
+import { verifyToken } from "../middleware/auth.middleware.js"
 
 const router = express.Router()
 
@@ -27,7 +28,7 @@ router.post("/messages", async (req, res) => {
 })
 
 // READ ALL MESSAGES (för admin)
-router.get("/messages", async (req, res) => {
+router.get("/messages",verifyToken, async (req, res) => {
   try {
     const messages = await Message.find().sort({ createdAt: -1 })
     res.json(messages)

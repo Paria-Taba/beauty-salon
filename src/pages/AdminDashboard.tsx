@@ -2,7 +2,7 @@ import "../pages/css/adminDashboard.css"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { useEffect, useState } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 interface Service {
   _id: string
@@ -20,24 +20,77 @@ interface Behandling {
   services: Service[]
 }
 
+interface Message {
+  _id: string
+  email: string
+  text: string
+  createdAt: string
+}
+
 function AdminDashboard() {
+  const navigate = useNavigate()
+
   const [behandlingar, setBehandlingar] = useState<Behandling[]>([])
+  const [messages, setMessages] = useState<Message[]>([])
   const [activeTab, setActiveTab] = useState<"tjanster" | "meddelanden">("tjanster")
   const [deleteId, setDeleteId] = useState<string | null>(null)
+  const [loadingMessages, setLoadingMessages] = useState(false)
+  const [errorMessages, setErrorMessages] = useState("")
 
+  const token = localStorage.getItem("token")
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/admin")
+    }
+  }, [token, navigate])
+
+  //  Fetch behandlingar
   useEffect(() => {
     fetch("/api/behandlingar")
       .then(res => res.json())
       .then(data => setBehandlingar(data))
       .catch(err => console.error(err))
   }, [])
-const confirmDelete = async () => {
+
+  // Fetch messages 
+  useEffect(() => {
+    if (activeTab === "meddelanden") {
+      setLoadingMessages(true)
+      setErrorMessages("")
+
+      fetch("/api/messages", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then(res => {
+          if (res.status === 401) {
+            navigate("/admin")
+            return
+          }
+          if (!res.ok) throw new Error()
+          return res.json()
+        })
+        .then(data => {
+          if (data) setMessages(data)
+          setLoadingMessages(false)
+        })
+        .catch(() => {
+          setErrorMessages("Något gick fel vid hämtning av meddelanden.")
+          setLoadingMessages(false)
+        })
+    }
+  }, [activeTab, token, navigate])
+
+  //  DELETE behandling
+  const confirmDelete = async () => {
     if (!deleteId) return
 
     const res = await fetch(`/api/behandlingar/${deleteId}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${token}`
       }
     })
 
@@ -76,6 +129,8 @@ const confirmDelete = async () => {
         </div>
 
         <div className="services">
+
+          {/* Tjänster */}
           {activeTab === "tjanster" && (
             <>
               <h2>Behandlingar</h2>
@@ -95,12 +150,12 @@ const confirmDelete = async () => {
                         Redigera
                       </NavLink>
 
-                <button
-  onClick={() => setDeleteId(item._id)}
-  className="delete-btn"
->
-  Ta bort
-</button>
+                      <button
+                        onClick={() => setDeleteId(item._id)}
+                        className="delete-btn"
+                      >
+                        Ta bort
+                      </button>
                     </div>
                   </div>
                 ))
@@ -114,15 +169,38 @@ const confirmDelete = async () => {
             </>
           )}
 
+          {/* Meddelanden */}
           {activeTab === "meddelanden" && (
             <>
               <h2>Meddelanden</h2>
-              <p>Här visas inkommande meddelanden...</p>
+
+              {loadingMessages && <p>Laddar meddelanden...</p>}
+              {errorMessages && <p>{errorMessages}</p>}
+
+              {!loadingMessages && !errorMessages && (
+                messages.length === 0 ? (
+                  <p>Inga meddelanden ännu.</p>
+                ) : (
+                  messages.map(msg => (
+                    <div key={msg._id} className="message-card">
+                      <p><strong>E-post:</strong> {msg.email}</p>
+                      <p><strong>Meddelande:</strong> {msg.text}</p>
+                      <p className="date-text">
+                        {new Date(msg.createdAt).toLocaleDateString("sv-SE")} 
+  {"  |  "}
+  {new Date(msg.createdAt).toLocaleTimeString("sv-SE")}
+                      </p>
+                    </div>
+                  ))
+                )
+              )}
             </>
           )}
+
         </div>
       </div>
-	   {/* MODAL */}
+
+      {/* MODAL  */}
       {deleteId && (
         <div className="modal-overlay">
           <div className="modal-box">
@@ -146,7 +224,6 @@ const confirmDelete = async () => {
           </div>
         </div>
       )}
-
 
       <Footer />
     </div>
