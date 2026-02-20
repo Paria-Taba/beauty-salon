@@ -36,5 +36,20 @@ router.get("/messages",verifyToken, async (req, res) => {
     res.status(500).json({ error: "Kunde inte hämta meddelanden" })
   }
 })
+// DELETE MESSAGE (för admin)
+router.delete("/messages/:id", verifyToken, async (req, res) => {
+  try {
+    const deletedMessage = await Message.findByIdAndDelete(req.params.id)
+
+    if (!deletedMessage) {
+      return res.status(404).json({ error: "Meddelande hittades inte" })
+    }
+
+    res.json({ message: "Meddelande borttaget" })
+
+  } catch (error) {
+    res.status(500).json({ error: "Kunde inte ta bort meddelande" })
+  }
+})
 
 export default router

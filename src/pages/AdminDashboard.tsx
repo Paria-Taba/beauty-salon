@@ -29,23 +29,28 @@ interface Message {
 
 function AdminDashboard() {
   const navigate = useNavigate()
+  const token = localStorage.getItem("token")
 
   const [behandlingar, setBehandlingar] = useState<Behandling[]>([])
   const [messages, setMessages] = useState<Message[]>([])
-  const [activeTab, setActiveTab] = useState<"tjanster" | "meddelanden">("tjanster")
+  const [activeTab, setActiveTab] =
+    useState<"tjanster" | "meddelanden">("tjanster")
+
   const [deleteId, setDeleteId] = useState<string | null>(null)
+  const [deleteType, setDeleteType] =
+    useState<"behandling" | "message" | null>(null)
+
   const [loadingMessages, setLoadingMessages] = useState(false)
   const [errorMessages, setErrorMessages] = useState("")
 
-  const token = localStorage.getItem("token")
-
+  // 🔐 Redirect if no token
   useEffect(() => {
     if (!token) {
       navigate("/admin")
     }
   }, [token, navigate])
 
-  //  Fetch behandlingar
+  // Fetch behandlingar
   useEffect(() => {
     fetch("/api/behandlingar")
       .then(res => res.json())
@@ -53,7 +58,7 @@ function AdminDashboard() {
       .catch(err => console.error(err))
   }, [])
 
-  // Fetch messages 
+  // Fetch messages (only when tab active)
   useEffect(() => {
     if (activeTab === "meddelanden") {
       setLoadingMessages(true)
@@ -77,30 +82,53 @@ function AdminDashboard() {
           setLoadingMessages(false)
         })
         .catch(() => {
-          setErrorMessages("Något gick fel vid hämtning av meddelanden.")
+          setErrorMessages("Något gick fel vid hämtning.")
           setLoadingMessages(false)
         })
     }
   }, [activeTab, token, navigate])
 
-  //  DELETE behandling
+  // 🗑 Confirm Delete
   const confirmDelete = async () => {
-    if (!deleteId) return
+    if (!deleteId || !deleteType) return
 
-    const res = await fetch(`/api/behandlingar/${deleteId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`
+    try {
+      if (deleteType === "behandling") {
+        const res = await fetch(`/api/behandlingar/${deleteId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+
+        if (res.ok) {
+          setBehandlingar(prev =>
+            prev.filter(b => b._id !== deleteId)
+          )
+        }
       }
-    })
 
-    if (res.ok) {
-      setBehandlingar(prev =>
-        prev.filter(b => b._id !== deleteId)
-      )
+      if (deleteType === "message") {
+        const res = await fetch(`/api/messages/${deleteId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+
+        if (res.ok) {
+          setMessages(prev =>
+            prev.filter(m => m._id !== deleteId)
+          )
+        }
+      }
+
+    } catch {
+      alert("Något gick fel.")
     }
 
     setDeleteId(null)
+    setDeleteType(null)
   }
 
   return (
@@ -108,10 +136,12 @@ function AdminDashboard() {
       <Header />
 
       <div className="dashboard-div">
+
         <div className="admin-title">
           <h1>Administrationspanel</h1>
         </div>
 
+        {/* TAB BUTTONS */}
         <div className="button-div">
           <button
             className={activeTab === "tjanster" ? "active" : ""}
@@ -138,8 +168,9 @@ function AdminDashboard() {
               {behandlingar.length === 0 ? (
                 <p>Inga behandlingar hittades.</p>
               ) : (
-                behandlingar.map((item) => (
+                behandlingar.map(item => (
                   <div key={item._id} className="services-title">
+
                     <div className="services-title-1">
                       <img src={item.icon} alt={item.title} />
                       <p>{item.title}</p>
@@ -151,12 +182,16 @@ function AdminDashboard() {
                       </NavLink>
 
                       <button
-                        onClick={() => setDeleteId(item._id)}
                         className="delete-btn"
+                        onClick={() => {
+                          setDeleteId(item._id)
+                          setDeleteType("behandling")
+                        }}
                       >
                         Ta bort
                       </button>
                     </div>
+
                   </div>
                 ))
               )}
@@ -174,7 +209,7 @@ function AdminDashboard() {
             <>
               <h2>Meddelanden</h2>
 
-              {loadingMessages && <p>Laddar meddelanden...</p>}
+              {loadingMessages && <p>Laddar...</p>}
               {errorMessages && <p>{errorMessages}</p>}
 
               {!loadingMessages && !errorMessages && (
@@ -183,19 +218,29 @@ function AdminDashboard() {
                 ) : (
                   messages.map(msg => (
                     <div key={msg._id} className="message-card">
-					
-						<p><strong>E-post:</strong> {msg.email}</p>
-						
-						<p><strong>Meddelande:</strong> {msg.text}</p>
+
+                      <p><strong>E-post:</strong> {msg.email}</p>
+                      <p><strong>Meddelande:</strong> {msg.text}</p>
+
                       <p className="date-text">
-                        {new Date(msg.createdAt).toLocaleDateString("sv-SE")} 
-  {"  |  "}
-  {new Date(msg.createdAt).toLocaleTimeString("sv-SE")}
+                        {new Date(msg.createdAt).toLocaleDateString("sv-SE")}
+                        {"  |  "}
+                        {new Date(msg.createdAt).toLocaleTimeString("sv-SE")}
                       </p>
-                     <div className="message-btn">
-							<button >Svara</button>
-                            <button >Ta bort</button>
-						</div>
+
+                      <div className="message-btn">
+                        <button>Svara</button>
+
+                        <button
+                          onClick={() => {
+                            setDeleteId(msg._id)
+                            setDeleteType("message")
+                          }}
+                        >
+                          Ta bort
+                        </button>
+                      </div>
+
                     </div>
                   ))
                 )
@@ -206,13 +251,21 @@ function AdminDashboard() {
         </div>
       </div>
 
-      {/* MODAL  */}
+      {/* MODAL */}
       {deleteId && (
         <div className="modal-overlay">
           <div className="modal-box">
-            <h3>Ta bort behandling?</h3>
+
+            <h3>
+              {deleteType === "behandling"
+                ? "Ta bort behandling?"
+                : "Ta bort meddelande?"}
+            </h3>
+
             <p>
-              Är du säker på att du vill ta bort denna behandling?
+              {deleteType === "behandling"
+                ? "Är du säker på att du vill ta bort denna behandling?"
+                : "Är du säker på att du vill ta bort detta meddelande?"}
             </p>
 
             <div className="modal-buttons">
@@ -223,10 +276,16 @@ function AdminDashboard() {
                 Ja, ta bort
               </button>
 
-              <button onClick={() => setDeleteId(null)}>
+              <button
+                onClick={() => {
+                  setDeleteId(null)
+                  setDeleteType(null)
+                }}
+              >
                 Avbryt
               </button>
             </div>
+
           </div>
         </div>
       )}
