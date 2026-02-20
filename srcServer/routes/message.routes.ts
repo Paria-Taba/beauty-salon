@@ -67,7 +67,7 @@ router.post("/messages/:id/reply", verifyToken, async (req, res) => {
       return res.status(404).json({ error: "Meddelande hittades inte" })
     }
 
-    // 1️⃣ Create transporter
+    //  Create transporter
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -76,9 +76,9 @@ router.post("/messages/:id/reply", verifyToken, async (req, res) => {
       }
     })
 
-    // 2️⃣ Send email
+    //  Send email
     await transporter.sendMail({
-      from: `"Mary7 Salon" <${process.env.EMAIL_USER}>`,
+      from: "maralparviz86@gmail.com",
       to: message.email,
       subject: "Svar från Mary7 Salon",
       html: `
@@ -89,7 +89,7 @@ router.post("/messages/:id/reply", verifyToken, async (req, res) => {
       `
     })
 
-    // 3️⃣ Update message status
+    //  Update message status
     message.reply = reply
     message.answered = true
     await message.save()

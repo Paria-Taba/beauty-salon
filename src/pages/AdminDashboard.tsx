@@ -166,7 +166,7 @@ function AdminDashboard() {
               <h2>Behandlingar</h2>
 
               {behandlingar.length === 0 ? (
-                <p>Inga behandlingar hittades.</p>
+                <p className="no-message">Inga behandlingar hittades.</p>
               ) : (
                 behandlingar.map(item => (
                   <div key={item._id} className="services-title">
@@ -214,7 +214,7 @@ function AdminDashboard() {
 
               {!loadingMessages && !errorMessages && (
                 messages.length === 0 ? (
-                  <p>Inga meddelanden ännu.</p>
+                  <p className="no-message">Det finns inga meddelanden.</p>
                 ) : (
                   messages.map(msg => (
                     <div key={msg._id} className="message-card">
