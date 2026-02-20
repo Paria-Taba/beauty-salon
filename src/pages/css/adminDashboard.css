@@ -190,6 +190,10 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 	display: flex;
 	justify-content: center;
 }
+.message-btn a{
+	text-decoration: none;
+	 color: #EBE1CD;
+}
 
 @media screen and (max-width:900px){
 .services{

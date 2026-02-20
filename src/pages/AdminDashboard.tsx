@@ -229,8 +229,13 @@ function AdminDashboard() {
                       </p>
 
                       <div className="message-btn">
-                        <button>Svara</button>
-
+						<button
+  onClick={() =>
+    navigate(`/admin/meddelande/svar/${msg._id}`)
+  }
+>
+  Svara
+</button>
                         <button
                           onClick={() => {
                             setDeleteId(msg._id)

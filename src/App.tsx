@@ -11,6 +11,7 @@ import AdminDahboard from './pages/AdminDashboard'
 import AdminAddSevices from './pages/AdminAddServices'
 import AdminEditServices from './pages/AdminEditServices'
 import AdminAddServiceCategory from './pages/AdminAddServiceCategory'
+import AdminMeddelandeSvar from './pages/AdminMeddelandeSvar'
 
 function App() {
   
@@ -28,11 +29,13 @@ function App() {
 				<Route path="/admin/oversikt" element={<AdminDahboard/>} />
 				<Route path="/admin/lagg-till-behandling" element={<AdminAddSevices/>} />
 				<Route path="/admin/redigera-behandling/:id" element={<AdminEditServices/>} />
+				<Route path="/admin/meddelande/svar/:id" element={<AdminMeddelandeSvar/>} />
 				<Route 
   path="/admin/behandlingar/:id/lagg-till-tjanst" 
   element={<AdminAddServiceCategory/>} 
 />
 		</Routes>
+		
 	  </HashRouter>
     </div>
   )

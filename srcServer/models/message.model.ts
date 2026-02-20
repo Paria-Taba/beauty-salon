@@ -9,6 +9,14 @@ const messageSchema = new mongoose.Schema(
     text: {
       type: String,
       required: true
+    },
+    reply: {
+      type: String,
+      default: ""
+    },
+    answered: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true }
