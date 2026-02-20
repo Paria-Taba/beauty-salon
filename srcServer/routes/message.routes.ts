@@ -78,18 +78,21 @@ router.post("/messages/:id/reply", verifyToken, async (req, res) => {
 
     //  Send email
     await transporter.sendMail({
-      from: "maralparviz86@gmail.com",
+      from: `"Mary7 Salon" <${process.env.EMAIL_USER}>`,
       to: message.email,
       subject: "Svar från Mary7 Salon",
       html: `
         <h3>Hej!</h3>
         <p>${reply}</p>
         <br/>
+		<p>
+      Om du vill kontakta oss direkt, vänligen skicka ett mejl till *maralparviz86@gmail.com*
+    </p>
         <p>Vänliga hälsningar,<br/>Mary7 Salon</p>
       `
     })
 
-    //  Update message status
+    // 3️⃣ Update message status
     message.reply = reply
     message.answered = true
     await message.save()
