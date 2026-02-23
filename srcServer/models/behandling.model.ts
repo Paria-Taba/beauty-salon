@@ -7,11 +7,11 @@ const subServiceSchema = new mongoose.Schema({
     required: true
   },
   tid: {
-    type: Number,
+    type: String,
     required: true
   },
   price: {
-    type: Number,
+    type: String,
     required: true
   },
    description: {
