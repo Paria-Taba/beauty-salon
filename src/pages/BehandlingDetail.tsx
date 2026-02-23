@@ -21,7 +21,7 @@ function BehandlingDetail() {
       <Header />
 	  <div className="service-detail-title">
 		 <img src={behandling.icon}  />
-      <h1>{behandling.title}</h1>
+      <h2 className="behandling-title">{behandling.title}</h2>
 	  </div>
       <div className="services-detail-grid">
         {behandling.services.map((service: any) => (

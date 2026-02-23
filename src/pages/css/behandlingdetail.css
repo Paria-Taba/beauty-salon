@@ -1,32 +1,36 @@
 .service-detail-title{
 	margin-left: 10px;
 	display: flex;
+	align-items: center;
 }
 .service-detail-title img{
 	background-color: white;
 	border-radius: 100%;
-	width: 100px;
-	height: 100px;
+	width: 80px;
+	height: 80px;
 	margin: 10px;
 	 border: 2px solid #C6A75E;
 }
 .services-detail-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
- 
 
 }
+.behandling-title{margin-left: 10px;}
 .service-detail-card{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 text-align: center;
 background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
-  padding: 40px;
+  padding: 20px;
   border-radius: 20px;
-margin: 40px;
+margin: 20px;
   box-shadow: 0 15px 40px rgba(198, 167, 94, 0.2);
   border: 2px solid #C6A75E;
+}
+.service-detail-card>*{
+	margin: 15px;
 }
 .service-detail-card h3{
 	color:#5A4632;
@@ -88,12 +92,15 @@ margin: 40px;
  
 
 }
+.services-detail-grid {
+	margin: 10px;
+}
 .service-detail-card{
 	margin: 20px;
 }
 .service-detail-title img{
-	width: 80px;
-	height: 80px;
+	width: 60px;
+	height: 60px;
 
 }
 .service-detail-title h1{

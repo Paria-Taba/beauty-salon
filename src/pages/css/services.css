@@ -1,5 +1,5 @@
 h1{
-	padding-left: 30px;
+	padding-left: 20px;
 }
 .services-grid {
   display: grid;
@@ -13,9 +13,9 @@ h1{
 	align-items: center;
 text-align: center;
 background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
-  padding: 40px;
+  padding: 20px;
   border-radius: 20px;
-margin: 40px;
+margin: 20px;
   box-shadow: 0 15px 40px rgba(198, 167, 94, 0.2);
   border: 2px solid #C6A75E;
 }
