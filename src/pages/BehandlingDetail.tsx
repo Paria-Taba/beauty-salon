@@ -27,12 +27,24 @@ function BehandlingDetail() {
         {behandling.services.map((service: any) => (
   <div key={service._id} className="service-detail-card">
     <h3>{service.name}</h3>
-    <p><span className="span-detail">Behandlingstid: </span>{service.tid} min</p>
     <p>✦ {service.description}</p>
     <p><span className="span-detail">pris: </span>{service.price} SEK</p>
   </div>
 ))}
       </div>
+	 <div>
+		 {behandling.images  && (
+  <section className="gallery">
+    <h2>Inspirationsbilder</h2>
+    <div className="gallery-grid">
+      {behandling.images.map((img: string, index: number) => (
+        <img key={index} src={img} alt={behandling.title} />
+		
+      ))}
+    </div>
+  </section>
+)}
+	 </div>
 	  <div className="book-div">
 		<NavLink to="/behandlingar" className="back-button">Tillbaka</NavLink>
 			  <a 

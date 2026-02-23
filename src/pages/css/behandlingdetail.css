@@ -84,6 +84,37 @@ margin: 20px;
   box-shadow: 0 8px 20px rgba(198, 167, 94, 0.35);
 }
 
+
+.gallery {
+margin: 0px 10px 20px 10px;
+  text-align: center;
+}
+
+.gallery h2 {
+  color: #d4af37;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.gallery-grid {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+ 
+}
+
+.gallery-grid img {
+  width: 200px;
+  border-radius: 14px;
+  transition: 0.3s ease;
+}
+
+.gallery-grid img:hover {
+	 border: 2px solid #C6A75E;
+  transform: scale(1.05);
+}
+
 @media screen and (max-width:768px) {
 	.services-detail-grid {
   

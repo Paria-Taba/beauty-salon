@@ -6,10 +6,6 @@ const subServiceSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  tid: {
-    type: String,
-    required: true
-  },
   price: {
     type: String,
     required: true
@@ -36,6 +32,9 @@ const behandlingSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+	 images: [String]
+	 ,
+
     services: [subServiceSchema]
   },
   { timestamps: true }
