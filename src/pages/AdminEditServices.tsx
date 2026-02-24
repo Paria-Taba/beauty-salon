@@ -8,9 +8,8 @@ import { NavLink } from "react-router-dom"
 interface Service {
   _id: string
   name: string
-  price: number
+  price: string
   description: string
-  tid: number
 }
 
 interface Behandling {
@@ -174,7 +173,6 @@ navigate("/admin/oversikt")
               <div>
                 <p><span className="title-edit">Namn:</span> {service.name}</p>
                 <p><span className="title-edit">Pris :</span> {service.price} kr</p>
-                <p><span className="title-edit">Behandlingstid :</span> {service.tid} min</p>
 				  <p><span className="title-edit">Beskrivning :</span> {service.description} min</p>
               </div>
 
