@@ -32,9 +32,9 @@
   box-shadow: 0 8px 20px rgba(198, 167, 94, 0.35);
 }
 .services{
-	margin: 50px 60px;
+	margin: 50px;
 background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
-  padding: 40px;
+  padding: 30px;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(198, 167, 94, 0.2);
   border: 2px solid #C6A75E;
@@ -48,8 +48,8 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 .services-title{
 	margin: 20px;
 	display: flex;
-	justify-content: space-around;
 	align-items: center;
+	 justify-content: space-between;
 	color: #2E2A25;
 	padding: 10px;
 
