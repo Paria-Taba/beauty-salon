@@ -35,7 +35,7 @@ function BehandlingDetail() {
 	 <div>
 		 {behandling.images  && (
   <section className="gallery">
-    <h2>Inspirationsbilder</h2>
+    <h2>✨ Inspirationsbilder ✨</h2>
     <div className="gallery-grid">
       {behandling.images.map((img: string, index: number) => (
         <img key={index} src={img} alt={behandling.title} />

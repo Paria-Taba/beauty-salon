@@ -8,16 +8,18 @@ h1{
 
 }
 .service-card{
+	 justify-content: space-between;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 text-align: center;
 background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
-  padding: 20px;
+  padding: 10px;
   border-radius: 20px;
 margin: 20px;
   box-shadow: 0 15px 40px rgba(198, 167, 94, 0.2);
   border: 2px solid #C6A75E;
+   
 }
 .service-card img{
 	width: 80px;
@@ -44,6 +46,7 @@ margin: 20px;
 
 .div-button{
 display: flex;
+  margin-top: auto;
 	justify-content: center;
 	align-items: center;
   margin: 20px;
