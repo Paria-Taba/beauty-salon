@@ -2,10 +2,13 @@ import express from "express"
 import { Message } from "../models/message.model.js"
 import { verifyToken } from "../middleware/auth.middleware.js"
 import nodemailer from "nodemailer"
+import { io } from "../server.js"
 
 const router = express.Router()
 
-// CREATE MESSAGE
+
+// CREATE MESSAGE (Public)
+
 router.post("/messages", async (req, res) => {
   try {
     const { email, text } = req.body
@@ -21,6 +24,9 @@ router.post("/messages", async (req, res) => {
       text
     })
 
+    //  REALTIME EMIT
+    io.emit("new_message", newMessage)
+
     res.status(201).json(newMessage)
 
   } catch (error) {
@@ -28,8 +34,10 @@ router.post("/messages", async (req, res) => {
   }
 })
 
-// READ ALL MESSAGES (för admin)
-router.get("/messages",verifyToken, async (req, res) => {
+
+// READ ALL MESSAGES (Admin)
+
+router.get("/messages", verifyToken, async (req, res) => {
   try {
     const messages = await Message.find().sort({ createdAt: -1 })
     res.json(messages)
@@ -37,7 +45,11 @@ router.get("/messages",verifyToken, async (req, res) => {
     res.status(500).json({ error: "Kunde inte hämta meddelanden" })
   }
 })
-// DELETE MESSAGE (för admin)
+
+
+
+// DELETE MESSAGE (Admin)
+
 router.delete("/messages/:id", verifyToken, async (req, res) => {
   try {
     const deletedMessage = await Message.findByIdAndDelete(req.params.id)
@@ -46,16 +58,31 @@ router.delete("/messages/:id", verifyToken, async (req, res) => {
       return res.status(404).json({ error: "Meddelande hittades inte" })
     }
 
+    //  REALTIME EMIT
+    io.emit("delete_message", deletedMessage._id)
+
     res.json({ message: "Meddelande borttaget" })
 
-  } catch (error) {
+  } catch {
     res.status(500).json({ error: "Kunde inte ta bort meddelande" })
   }
 })
+
+
+
+// GET ONE MESSAGE
+
 router.get("/messages/:id", verifyToken, async (req, res) => {
-  const message = await Message.findById(req.params.id)
-  res.json(message)
+  try {
+    const message = await Message.findById(req.params.id)
+    res.json(message)
+  } catch {
+    res.status(500).json({ error: "Kunde inte hämta meddelande" })
+  }
 })
+
+
+// REPLY TO MESSAGE
 
 router.post("/messages/:id/reply", verifyToken, async (req, res) => {
   try {
@@ -85,22 +112,27 @@ router.post("/messages/:id/reply", verifyToken, async (req, res) => {
         <h3>Hej!</h3>
         <p>${reply}</p>
         <br/>
-		<p>
-      Om du vill kontakta oss direkt, vänligen skicka ett mejl till *maralparviz86@gmail.com*
-    </p>
+        <p>
+          Om du vill kontakta oss direkt, vänligen skicka ett mejl till
+          maralparviz86@gmail.com
+        </p>
         <p>Vänliga hälsningar,<br/>Mary7 Salon</p>
       `
     })
 
-    // 3️⃣ Update message status
+    //  Update DB
     message.reply = reply
     message.answered = true
     await message.save()
 
+    //  REALTIME UPDATE
+    io.emit("update_message", message)
+
     res.json({ message: "Svar skickat och sparat" })
 
-  } catch (error) {
+  } catch {
     res.status(500).json({ error: "Kunde inte skicka e-post" })
   }
 })
+
 export default router

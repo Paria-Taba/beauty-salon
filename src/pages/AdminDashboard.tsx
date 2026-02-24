@@ -82,25 +82,29 @@ function AdminDashboard() {
     })
 
     //MESSAGE 
-    socket.on("new_message", (msg: Message) => {
+     socket.on("new_message", (msg: Message) => {
+    if (activeTab === "meddelanden") {
       setMessages(prev => [msg, ...prev])
-    })
+    }
+  })
 
-    socket.on("delete_message", (id: string) => {
+  socket.on("delete_message", (id: string) => {
+    if (activeTab === "meddelanden") {
       setMessages(prev =>
         prev.filter(m => m._id !== id)
       )
-    })
-
-    return () => {
-      socket.off("new_behandling")
-      socket.off("delete_behandling")
-      socket.off("update_behandling")
-      socket.off("new_message")
-      socket.off("delete_message")
     }
+  })
 
-  }, [])
+  return () => {
+    socket.off("new_behandling")
+    socket.off("delete_behandling")
+    socket.off("update_behandling")
+    socket.off("new_message")
+    socket.off("delete_message")
+  }
+
+}, [activeTab])
 
   // Fetch messages (only when tab active)
   useEffect(() => {
