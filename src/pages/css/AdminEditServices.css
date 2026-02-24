@@ -108,7 +108,11 @@ button:hover {
   width: 100%;
   gap: 20px;
 }
-
+.service-row{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .edit-services-detail > * {
   padding: 20px;
    background: #F3ECE2;

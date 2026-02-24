@@ -3,6 +3,7 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { useEffect, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
+import { socket } from "../socket"
 
 interface Service {
   _id: string
@@ -43,7 +44,7 @@ function AdminDashboard() {
   const [loadingMessages, setLoadingMessages] = useState(false)
   const [errorMessages, setErrorMessages] = useState("")
 
-  // 🔐 Redirect if no token
+  //  Redirect if no token
   useEffect(() => {
     if (!token) {
       navigate("/admin")
@@ -56,6 +57,49 @@ function AdminDashboard() {
       .then(res => res.json())
       .then(data => setBehandlingar(data))
       .catch(err => console.error(err))
+  }, [])
+
+  //  SOCKET LISTENERS
+  useEffect(() => {
+
+    // BEHANDLING
+    socket.on("new_behandling", (data: Behandling) => {
+      setBehandlingar(prev => [...prev, data])
+    })
+
+    socket.on("delete_behandling", (id: string) => {
+      setBehandlingar(prev =>
+        prev.filter(b => b._id !== id)
+      )
+    })
+
+    socket.on("update_behandling", (updated: Behandling) => {
+      setBehandlingar(prev =>
+        prev.map(b =>
+          b._id === updated._id ? updated : b
+        )
+      )
+    })
+
+    //MESSAGE 
+    socket.on("new_message", (msg: Message) => {
+      setMessages(prev => [msg, ...prev])
+    })
+
+    socket.on("delete_message", (id: string) => {
+      setMessages(prev =>
+        prev.filter(m => m._id !== id)
+      )
+    })
+
+    return () => {
+      socket.off("new_behandling")
+      socket.off("delete_behandling")
+      socket.off("update_behandling")
+      socket.off("new_message")
+      socket.off("delete_message")
+    }
+
   }, [])
 
   // Fetch messages (only when tab active)
@@ -88,39 +132,27 @@ function AdminDashboard() {
     }
   }, [activeTab, token, navigate])
 
-  // 🗑 Confirm Delete
+  // Confirm Delete
   const confirmDelete = async () => {
     if (!deleteId || !deleteType) return
 
     try {
       if (deleteType === "behandling") {
-        const res = await fetch(`/api/behandlingar/${deleteId}`, {
+        await fetch(`/api/behandlingar/${deleteId}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`
           }
         })
-
-        if (res.ok) {
-          setBehandlingar(prev =>
-            prev.filter(b => b._id !== deleteId)
-          )
-        }
       }
 
       if (deleteType === "message") {
-        const res = await fetch(`/api/messages/${deleteId}`, {
+        await fetch(`/api/messages/${deleteId}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`
           }
         })
-
-        if (res.ok) {
-          setMessages(prev =>
-            prev.filter(m => m._id !== deleteId)
-          )
-        }
       }
 
     } catch {
@@ -229,13 +261,14 @@ function AdminDashboard() {
                       </p>
 
                       <div className="message-btn">
-						<button
-  onClick={() =>
-    navigate(`/admin/meddelande/svar/${msg._id}`)
-  }
->
-  Svara
-</button>
+                        <button
+                          onClick={() =>
+                            navigate(`/admin/meddelande/svar/${msg._id}`)
+                          }
+                        >
+                          Svara
+                        </button>
+
                         <button
                           onClick={() => {
                             setDeleteId(msg._id)

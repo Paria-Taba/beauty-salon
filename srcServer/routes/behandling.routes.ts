@@ -2,21 +2,26 @@ import express from "express"
 import { Behandling } from "../models/behandling.model.js"
 import { verifyToken } from "../middleware/auth.middleware.js"
 import type { Request, Response } from "express"
-
+import { io } from "../server.js"
 
 const router = express.Router()
 
-
-router.post("/",verifyToken, async (req, res) => {
+//  CREATE CATEGORY
+router.post("/", verifyToken, async (req, res) => {
   try {
     const behandling = await Behandling.create(req.body)
+
+    //  realtime
+    io.emit("new_behandling", behandling)
+
     res.status(201).json(behandling)
   } catch (error) {
     res.status(400).json({ error: "Kunde inte skapa behandling" })
   }
 })
 
-// READ ALL CATEGORIES
+
+//  READ ALL
 router.get("/", async (req, res) => {
   try {
     const behandlingar = await Behandling.find()
@@ -26,7 +31,8 @@ router.get("/", async (req, res) => {
   }
 })
 
-// READ ONE CATEGORY
+
+//  READ ONE
 router.get("/:id", async (req, res) => {
   try {
     const behandling = await Behandling.findById(req.params.id)
@@ -35,8 +41,10 @@ router.get("/:id", async (req, res) => {
     res.status(404).json({ error: "Behandling hittades inte" })
   }
 })
+
+
 // DELETE CATEGORY
-router.delete("/:id",verifyToken, async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const deletedBehandling = await Behandling.findByIdAndDelete(req.params.id)
 
@@ -44,12 +52,17 @@ router.delete("/:id",verifyToken, async (req, res) => {
       return res.status(404).json({ error: "Behandling hittades inte" })
     }
 
+    //  realtime
+    io.emit("delete_behandling", deletedBehandling._id)
+
     res.json({ message: "Behandling borttagen" })
   } catch (error) {
     res.status(500).json({ error: "Kunde inte ta bort behandling" })
   }
 })
 
+
+// UPDATE CATEGORY
 router.put("/:id", verifyToken, async (req, res) => {
   try {
     const updatedBehandling = await Behandling.findByIdAndUpdate(
@@ -59,12 +72,15 @@ router.put("/:id", verifyToken, async (req, res) => {
         description: req.body.description,
         icon: req.body.icon
       },
-      { new: true } 
+      { new: true }
     )
 
     if (!updatedBehandling) {
       return res.status(404).json({ error: "Behandling hittades inte" })
     }
+
+    //  realtime
+    io.emit("update_behandling", updatedBehandling)
 
     res.json(updatedBehandling)
 
@@ -73,7 +89,9 @@ router.put("/:id", verifyToken, async (req, res) => {
   }
 })
 
-router.post("/:id/services",verifyToken, async (req, res) => {
+
+//  ADD SERVICE
+router.post("/:id/services", verifyToken, async (req, res) => {
   try {
     const behandling = await Behandling.findById(req.params.id)
 
@@ -84,12 +102,17 @@ router.post("/:id/services",verifyToken, async (req, res) => {
     behandling.services.push(req.body)
     await behandling.save()
 
+    //  realtime
+    io.emit("update_behandling", behandling)
+
     res.json(behandling)
   } catch (error) {
     res.status(400).json({ error: "Kunde inte lägga till service" })
   }
 })
 
+
+//  DELETE SERVICE
 router.delete(
   "/:id/services/:serviceId",
   verifyToken,
@@ -114,6 +137,9 @@ router.delete(
 
       service.deleteOne()
       await behandling.save()
+
+      // realtime
+      io.emit("update_behandling", behandling)
 
       res.json({ message: "Tjänst borttagen" })
 
