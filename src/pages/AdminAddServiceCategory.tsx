@@ -19,7 +19,6 @@ function AdminAddServiceCategory() {
   const [service, setService] = useState({
     name: "",
     price: "",
-    tid: "",
     description: ""
   })
 
@@ -51,8 +50,7 @@ function AdminAddServiceCategory() {
       body: JSON.stringify({
         name: service.name,
         description: service.description,
-        price: Number(service.price),
-        tid: Number(service.tid)
+        price: service.price
       })
     })
 
@@ -88,21 +86,11 @@ function AdminAddServiceCategory() {
 
         <label>Pris (kr)</label>
         <input
-          type="number"
+          type="text"
           placeholder="Ange pris..."
           value={service.price}
           onChange={(e) =>
             setService({ ...service, price: e.target.value })
-          }
-        />
-
-        <label>Behandlingstid (min)</label>
-        <input
-          type="number"
-          placeholder="Ange behandlingstid..."
-          value={service.tid}
-          onChange={(e) =>
-            setService({ ...service, tid: e.target.value })
           }
         />
 
