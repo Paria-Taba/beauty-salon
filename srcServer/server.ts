@@ -18,18 +18,16 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-// FIX __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// Correct PORT for Render
 const port: number = Number(process.env.PORT) || 1337
 
 const server = http.createServer(app)
 
 export const io = new Server(server, {
   cors: {
-    origin: "*", 
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"]
   }
 })
@@ -40,22 +38,16 @@ io.on("connection", (socket) => {
 
 connectDB()
 
-//  FIX STATIC PATH 
-app.use(
-  express.static(
-    path.join(__dirname, "../../dist")
-  )
-)
+//  FIXED PATH 
+app.use(express.static(path.join(__dirname, "../dist")))
 
-//  API routes
 app.use("/api/admin", adminRoutes)
 app.use("/api/behandlingar", serviceRoutes)
 app.use("/api", messageRoute)
 
+//  React fallback
 app.get("*", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "../../dist/index.html")
-  )
+  res.sendFile(path.join(__dirname, "../dist/index.html"))
 })
 
 server.listen(port, () => {
