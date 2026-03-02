@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import "../pages/css/Services.css"
+import "../pages/css/services.css"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { NavLink } from "react-router-dom"
