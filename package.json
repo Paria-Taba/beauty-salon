@@ -3,18 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-  "dev": "vite",
-
-  "dev-server": "tsx srcServer/server.ts",
-
-  "build-frontend": "tsc -b && vite build",
-  "build-server": "tsc -p ./srcServer/tsconfig.json",
-
-  "build": "npm run build-frontend && npm run build-server",
-
-  "start": "node ./distServer/server.js"
-},
+ "scripts": {
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "dev": "vite",
+    "build-frontend": "tsc -b && vite build",
+    "build-server": "tsc -p ./srcServer/tsconfig.json",
+    "restart-server": "npm run build-server && npm run start-server",
+    "start-server": "node ./distServer/server.js",
+    "predeploy": "npm run build-frontend && npm run build-server"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
