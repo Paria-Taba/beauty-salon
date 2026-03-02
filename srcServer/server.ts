@@ -46,7 +46,10 @@ app.use("/api/behandlingar", serviceRoutes)
 app.use("/api", messageRoute)
 
 //  React fallback
-app.get("*", (req, res) => {
+app.get("*", (req, res, next) => {
+  if (req.path.startsWith("/api")) return next()
+  if (req.path.includes(".")) return next() 
+
   res.sendFile(path.join(__dirname, "../dist/index.html"))
 })
 
