@@ -1,138 +1,178 @@
 import express from "express"
+import type { Request, Response } from "express"
+
+import nodemailer from "nodemailer"
+
 import { Message } from "../models/message.model.js"
 import { verifyToken } from "../middleware/auth.middleware.js"
-import nodemailer from "nodemailer"
+import { validate } from "../middleware/validate.middleware.js"
 import { io } from "../server.js"
+
+import {
+  createMessageSchema,
+  replySchema
+} from "../validation/message.validation.js"
+
+import type {
+  CreateMessageInput,
+  ReplyInput
+} from "../validation/message.validation.js"
 
 const router = express.Router()
 
-
-// CREATE MESSAGE (Public)
-
-router.post("/messages", async (req, res) => {
-  try {
-    const { email, text } = req.body
-
-    if (!email || !text) {
-      return res
-        .status(400)
-        .json({ error: "E-post och meddelande krävs" })
+// POST /api/messages
+router.post(
+  "/messages",
+  validate(createMessageSchema),
+  async (
+    req: Request<{}, {}, CreateMessageInput>,
+    res: Response
+  ): Promise<Response> => {
+    try {
+      const message = await Message.create(req.body)
+      io.emit("new_message", message)
+      return res.status(201).json(message)
+    } catch {
+      return res.status(500).json({
+        error: "Kunde inte spara meddelande"
+      })
     }
-
-    const newMessage = await Message.create({
-      email,
-      text
-    })
-
-    //  REALTIME EMIT
-    io.emit("new_message", newMessage)
-
-    res.status(201).json(newMessage)
-
-  } catch (error) {
-    res.status(500).json({ error: "Kunde inte spara meddelande" })
   }
-})
+)
 
-
-// READ ALL MESSAGES (Admin)
-
-router.get("/messages", verifyToken, async (req, res) => {
-  try {
-    const messages = await Message.find().sort({ createdAt: -1 })
-    res.json(messages)
-  } catch {
-    res.status(500).json({ error: "Kunde inte hämta meddelanden" })
-  }
-})
-
-
-
-// DELETE MESSAGE (Admin)
-
-router.delete("/messages/:id", verifyToken, async (req, res) => {
-  try {
-    const deletedMessage = await Message.findByIdAndDelete(req.params.id)
-
-    if (!deletedMessage) {
-      return res.status(404).json({ error: "Meddelande hittades inte" })
+// GET /api/messages
+router.get(
+  "/messages",
+  verifyToken,
+  async (_req: Request, res: Response): Promise<Response> => {
+    try {
+      const messages = await Message.find().sort({
+        createdAt: -1
+      })
+      return res.json(messages)
+    } catch {
+      return res.status(500).json({
+        error: "Kunde inte hämta meddelanden"
+      })
     }
-
-    //  REALTIME EMIT
-    io.emit("delete_message", deletedMessage._id)
-
-    res.json({ message: "Meddelande borttaget" })
-
-  } catch {
-    res.status(500).json({ error: "Kunde inte ta bort meddelande" })
   }
-})
+)
 
+// GET /api/messages/:id
+router.get(
+  "/messages/:id",
+  verifyToken,
+  async (
+    req: Request<{ id: string }>,
+    res: Response
+  ): Promise<Response> => {
+    try {
+      const message = await Message.findById(req.params.id)
 
-
-// GET ONE MESSAGE
-
-router.get("/messages/:id", verifyToken, async (req, res) => {
-  try {
-    const message = await Message.findById(req.params.id)
-    res.json(message)
-  } catch {
-    res.status(500).json({ error: "Kunde inte hämta meddelande" })
-  }
-})
-
-
-// REPLY TO MESSAGE
-
-router.post("/messages/:id/reply", verifyToken, async (req, res) => {
-  try {
-    const { reply } = req.body
-
-    const message = await Message.findById(req.params.id)
-
-    if (!message) {
-      return res.status(404).json({ error: "Meddelande hittades inte" })
-    }
-
-    //  Create transporter
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+      if (!message) {
+        return res.status(404).json({
+          error: "Meddelande hittades inte"
+        })
       }
-    })
 
-    //  Send email
-    await transporter.sendMail({
-      from: `"Mary7 Salon" <${process.env.EMAIL_USER}>`,
-      to: message.email,
-      subject: "Svar från Mary7 Salon",
-      html: `
-        <h3>Hej!</h3>
-        <p>${reply}</p>
-        <br/>
-        <p>
-          Om du vill kontakta oss direkt, vänligen skicka ett mejl till
-          maralparviz86@gmail.com
-        </p>
-        <p>Vänliga hälsningar,<br/>Mary7 Salon</p>
-      `
-    })
-
-    //  Update DB
-    message.reply = reply
-    message.answered = true
-    await message.save()
-
-    //  REALTIME UPDATE
-    io.emit("update_message", message)
-
-    res.json({ message: "Svar skickat och sparat" })
-
-  } catch {
-    res.status(500).json({ error: "Kunde inte skicka e-post" })
+      return res.json(message)
+    } catch {
+      return res.status(500).json({
+        error: "Kunde inte hämta meddelande"
+      })
+    }
   }
-})
+)
+
+// DELETE /api/messages/:id
+router.delete(
+  "/messages/:id",
+  verifyToken,
+  async (
+    req: Request<{ id: string }>,
+    res: Response
+  ): Promise<Response> => {
+    try {
+      const deleted = await Message.findByIdAndDelete(
+        req.params.id
+      )
+
+      if (!deleted) {
+        return res.status(404).json({
+          error: "Meddelande hittades inte"
+        })
+      }
+
+      io.emit("delete_message", deleted._id.toString())
+
+      return res.json({
+        message: "Meddelande borttaget"
+      })
+    } catch {
+      return res.status(500).json({
+        error: "Kunde inte ta bort meddelande"
+      })
+    }
+  }
+)
+
+// POST /api/messages/:id/reply
+router.post(
+  "/messages/:id/reply",
+  verifyToken,
+  validate(replySchema),
+  async (
+    req: Request<{ id: string }, {}, ReplyInput>,
+    res: Response
+  ): Promise<Response> => {
+    try {
+      const message = await Message.findById(req.params.id)
+
+      if (!message) {
+        return res.status(404).json({
+          error: "Meddelande hittades inte"
+        })
+      }
+
+      if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        throw new Error("Email credentials saknas")
+      }
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS
+        }
+      })
+
+      await transporter.sendMail({
+        from: `"Mary7 Salon" <${process.env.EMAIL_USER}>`,
+        to: message.email,
+        subject: "Svar från Mary7 Salon",
+        html: `
+          <h3>Hej!</h3>
+          <p>${req.body.reply}</p>
+          <br/>
+          <p>Vänliga hälsningar,<br/>Mary7 Salon</p>
+        `
+      })
+
+      message.reply = req.body.reply
+      message.answered = true
+      await message.save()
+
+      io.emit("update_message", message)
+
+      return res.json({
+        message: "Svar skickat och sparat"
+      })
+    } catch {
+      return res.status(500).json({
+        error: "Kunde inte skicka e-post"
+      })
+    }
+  }
+)
 
 export default router

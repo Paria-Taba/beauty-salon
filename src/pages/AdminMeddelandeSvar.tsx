@@ -1,6 +1,6 @@
 import Footer from "../components/Footer"
-import "../pages/css/adminMeddelandeSvar.css"
 import Header from "../components/Header"
+import "../pages/css/adminMeddelandeSvar.css"
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 
@@ -25,33 +25,45 @@ function AdminMeddelandeSvar() {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
 
-  // Hämta meddelandet
   useEffect(() => {
-    if (!id) return
+    if (!token) {
+      navigate("/admin/login")
+    }
+  }, [token, navigate])
+
+  useEffect(() => {
+    if (!id || !token) return
 
     const fetchMessage = async () => {
       try {
         const res = await fetch(`/api/messages/${id}`, {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         })
 
-        if (!res.ok) throw new Error()
+        if (res.status === 401) {
+          navigate("/admin/login")
+          return
+        }
+
+        if (!res.ok) {
+          const data = await res.json()
+          throw new Error(data.error || "Kunde inte hämta meddelandet")
+        }
 
         const data = await res.json()
         setMessage(data)
-      } catch {
-        setError("Kunde inte hämta meddelandet.")
+      } catch (err: any) {
+        setError(err.message || "Kunde inte hämta meddelandet.")
       } finally {
         setLoading(false)
       }
     }
 
     fetchMessage()
-  }, [id, token])
+  }, [id, token, navigate])
 
-  // Skicka svar
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -59,6 +71,8 @@ function AdminMeddelandeSvar() {
       setError("Skriv ett svar först.")
       return
     }
+
+    if (!id) return
 
     setSending(true)
     setError("")
@@ -69,24 +83,41 @@ function AdminMeddelandeSvar() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ reply })
+        body: JSON.stringify({ reply }),
       })
 
-      if (!res.ok) throw new Error()
+      if (res.status === 401) {
+        navigate("/admin/login")
+        return
+      }
+
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.error || "E-post kunde inte skickas")
+      }
 
       setSuccess("Meddelandet har skickats. ✅")
-      setReply("") 
-    } catch {
-      setError("E-post kunde inte skickas.")
+      setReply("")
+
+      setMessage((prev) =>
+        prev
+          ? {
+              ...prev,
+              reply,
+              answered: true,
+            }
+          : prev
+      )
+    } catch (err: any) {
+      setError(err.message || "E-post kunde inte skickas.")
     } finally {
       setSending(false)
     }
   }
 
   if (loading) return <p>Laddar...</p>
-  if (error && !message) return <p>{error}</p>
   if (!message) return <p>Meddelandet hittades inte.</p>
 
   return (
@@ -97,17 +128,21 @@ function AdminMeddelandeSvar() {
         <h2>Svara på meddelande</h2>
 
         <div className="original-message">
-          <p><strong>E-post:</strong> {message.email}</p>
-          <p><strong>Meddelande:</strong> {message.text}</p>
+          <p>
+            <strong>E-post:</strong> {message.email}
+          </p>
+
+          <p>
+            <strong>Meddelande:</strong> {message.text}
+          </p>
+
           <p className="date-text">
-            {new Date(message.createdAt).toLocaleDateString("sv-SE")}
-            {" | "}
+            {new Date(message.createdAt).toLocaleDateString("sv-SE")} |{" "}
             {new Date(message.createdAt).toLocaleTimeString("sv-SE")}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="reply-form">
-
           <label>Ditt svar:</label>
 
           <textarea
@@ -132,9 +167,7 @@ function AdminMeddelandeSvar() {
               Avbryt
             </button>
           </div>
-
         </form>
-
       </div>
 
       <Footer />
