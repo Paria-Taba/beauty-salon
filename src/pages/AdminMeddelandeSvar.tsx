@@ -125,7 +125,7 @@ function AdminMeddelandeSvar() {
       <Header />
 
       <div className="answer-container">
-        <h2>Svara på meddelande</h2>
+        <h2 className="title-answer">Svara på meddelande</h2>
 
         <div className="original-message">
           <p>
