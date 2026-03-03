@@ -1,25 +1,14 @@
 import express from "express"
 import type { Request, Response } from "express"
-
 import { Resend } from "resend"
 import { Message } from "../models/message.model.js"
 import { verifyToken } from "../middleware/auth.middleware.js"
 import { validate } from "../middleware/validate.middleware.js"
 import { io } from "../server.js"
-
-import {
-  createMessageSchema,
-  replySchema
-} from "../validation/message.validation.js"
-
-import type {
-  CreateMessageInput,
-  ReplyInput
-} from "../validation/message.validation.js"
+import { createMessageSchema, replySchema } from "../validation/message.validation.js"
+import type { CreateMessageInput, ReplyInput } from "../validation/message.validation.js"
 
 const router = express.Router()
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 // POST /api/messages
 router.post(
@@ -34,9 +23,7 @@ router.post(
       io.emit("new_message", message)
       return res.status(201).json(message)
     } catch {
-      return res.status(500).json({
-        error: "Kunde inte spara meddelande"
-      })
+      return res.status(500).json({ error: "Kunde inte spara meddelande" })
     }
   }
 )
@@ -47,14 +34,10 @@ router.get(
   verifyToken,
   async (_req: Request, res: Response): Promise<Response> => {
     try {
-      const messages = await Message.find().sort({
-        createdAt: -1
-      })
+      const messages = await Message.find().sort({ createdAt: -1 })
       return res.json(messages)
     } catch {
-      return res.status(500).json({
-        error: "Kunde inte hämta meddelanden"
-      })
+      return res.status(500).json({ error: "Kunde inte hämta meddelanden" })
     }
   }
 )
@@ -71,16 +54,12 @@ router.get(
       const message = await Message.findById(req.params.id)
 
       if (!message) {
-        return res.status(404).json({
-          error: "Meddelande hittades inte"
-        })
+        return res.status(404).json({ error: "Meddelande hittades inte" })
       }
 
       return res.json(message)
     } catch {
-      return res.status(500).json({
-        error: "Kunde inte hämta meddelande"
-      })
+      return res.status(500).json({ error: "Kunde inte hämta meddelande" })
     }
   }
 )
@@ -97,20 +76,14 @@ router.delete(
       const deleted = await Message.findByIdAndDelete(req.params.id)
 
       if (!deleted) {
-        return res.status(404).json({
-          error: "Meddelande hittades inte"
-        })
+        return res.status(404).json({ error: "Meddelande hittades inte" })
       }
 
       io.emit("delete_message", deleted._id.toString())
 
-      return res.json({
-        message: "Meddelande borttaget"
-      })
+      return res.json({ message: "Meddelande borttaget" })
     } catch {
-      return res.status(500).json({
-        error: "Kunde inte ta bort meddelande"
-      })
+      return res.status(500).json({ error: "Kunde inte ta bort meddelande" })
     }
   }
 )
@@ -125,16 +98,16 @@ router.post(
     res: Response
   ): Promise<Response> => {
     try {
+      if (!process.env.RESEND_API_KEY) {
+        throw new Error("RESEND_API_KEY saknas i .env")
+      }
+
+      const resend = new Resend(process.env.RESEND_API_KEY)
+
       const message = await Message.findById(req.params.id)
 
       if (!message) {
-        return res.status(404).json({
-          error: "Meddelande hittades inte"
-        })
-      }
-
-      if (!process.env.RESEND_API_KEY) {
-        throw new Error("Resend API key saknas")
+        return res.status(404).json({ error: "Meddelande hittades inte" })
       }
 
       await resend.emails.send({
@@ -162,15 +135,10 @@ router.post(
 
       io.emit("update_message", message)
 
-      return res.json({
-        message: "Svar skickat och sparat"
-      })
-
+      return res.json({ message: "Svar skickat och sparat" })
     } catch (error) {
       console.error("RESEND ERROR:", error)
-      return res.status(500).json({
-        error: "Kunde inte skicka e-post"
-      })
+      return res.status(500).json({ error: "Kunde inte skicka e-post" })
     }
   }
 )

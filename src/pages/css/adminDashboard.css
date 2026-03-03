@@ -10,6 +10,12 @@
 	align-items: center;
 	margin-bottom: 20px;
 }
+.logout-container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
+}
 .button-div button {
     display: inline-flex;
   justify-content: center;
@@ -258,6 +264,9 @@ background: linear-gradient(145deg, #F3ECE2, #E6D6B4);
 }
 .modal-box{
 	padding: 10px;
+}
+.admin-title h1{
+	font-size: 24px;
 }
 }
 @media screen and (max-width:600px){

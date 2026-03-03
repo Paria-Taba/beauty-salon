@@ -166,6 +166,11 @@ function AdminDashboard() {
     setDeleteId(null)
     setDeleteType(null)
   }
+  const handleLogout = () => {
+  localStorage.removeItem("token")  
+  socket.disconnect()              
+  navigate("/")                     
+}
 
   return (
     <div>
@@ -175,6 +180,7 @@ function AdminDashboard() {
 
         <div className="admin-title">
           <h1>Administrationspanel</h1>
+		
         </div>
 
         {/* TAB BUTTONS */}
@@ -291,6 +297,11 @@ function AdminDashboard() {
           )}
 
         </div>
+		<div className="logout-container">
+  <button className="logout-btn" onClick={handleLogout} >
+    Logga ut
+  </button>
+</div>
       </div>
 
       {/* MODAL */}
