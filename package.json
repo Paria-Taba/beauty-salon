@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
- "scripts": {
+  "scripts": {
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -12,20 +12,21 @@
     "build-server": "tsc -p ./srcServer/tsconfig.json",
     "restart-server": "npm run build-server && npm run start-server",
     "start-server": "node ./distServer/server.js",
-	"dev-server": "tsx srcServer/server.ts",
+    "dev-server": "tsx srcServer/server.ts",
     "predeploy": "npm run build-frontend && npm run build-server"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.2.4",
-   "express": "^4.19.2",
+    "express": "^4.19.2",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.2.0",
     "nodemailer": "^8.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.0",
+    "resend": "^6.9.3",
     "socket.io": "^4.8.3",
     "socket.io-client": "^4.8.3",
     "zod": "^4.3.6",

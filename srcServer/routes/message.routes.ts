@@ -1,8 +1,7 @@
 import express from "express"
 import type { Request, Response } from "express"
 
-import nodemailer from "nodemailer"
-
+import { Resend } from "resend"
 import { Message } from "../models/message.model.js"
 import { verifyToken } from "../middleware/auth.middleware.js"
 import { validate } from "../middleware/validate.middleware.js"
@@ -19,6 +18,8 @@ import type {
 } from "../validation/message.validation.js"
 
 const router = express.Router()
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 // POST /api/messages
 router.post(
@@ -93,9 +94,7 @@ router.delete(
     res: Response
   ): Promise<Response> => {
     try {
-      const deleted = await Message.findByIdAndDelete(
-        req.params.id
-      )
+      const deleted = await Message.findByIdAndDelete(req.params.id)
 
       if (!deleted) {
         return res.status(404).json({
@@ -134,21 +133,12 @@ router.post(
         })
       }
 
-      if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-        throw new Error("Email credentials saknas")
+      if (!process.env.RESEND_API_KEY) {
+        throw new Error("Resend API key saknas")
       }
 
-      const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-})
-      await transporter.sendMail({
-        from: `"Mary7 Salon" <${process.env.EMAIL_USER}>`,
+      await resend.emails.send({
+        from: "Mary7 Salon <onboarding@resend.dev>",
         to: message.email,
         subject: "Svar från Mary7 Salon",
         html: `
@@ -156,6 +146,13 @@ router.post(
           <p>${req.body.reply}</p>
           <br/>
           <p>Vänliga hälsningar,<br/>Mary7 Salon</p>
+          <hr style="margin:20px 0;" />
+          <p style="font-size:14px;color:gray;">
+            Detta är ett automatiskt e-postmeddelande och kan inte besvaras.<br/>
+            Om du vill svara, vänligen kontakta oss på:<br/>
+            <strong>maralparviz86@gmail.com</strong><br/>
+            Telefon: 073-977 57 55
+          </p>
         `
       })
 
@@ -168,12 +165,13 @@ router.post(
       return res.json({
         message: "Svar skickat och sparat"
       })
+
     } catch (error) {
-  console.error("EMAIL ERROR:", error)
-  return res.status(500).json({
-    error: "Kunde inte skicka e-post"
-  })
-}
+      console.error("RESEND ERROR:", error)
+      return res.status(500).json({
+        error: "Kunde inte skicka e-post"
+      })
+    }
   }
 )
 
