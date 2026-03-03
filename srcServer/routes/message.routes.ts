@@ -108,11 +108,13 @@ router.delete(
       return res.json({
         message: "Meddelande borttaget"
       })
-    } catch {
-      return res.status(500).json({
-        error: "Kunde inte ta bort meddelande"
-      })
-    }
+    } catch (error: any) {
+  console.error("EMAIL ERROR:", error)
+
+  return res.status(500).json({
+    error: error.message || "Email error"
+  })
+}
   }
 )
 
