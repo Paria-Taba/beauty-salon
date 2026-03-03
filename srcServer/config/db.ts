@@ -5,7 +5,7 @@ export const connectDB = async () => {
     await mongoose.connect(process.env.MONGO_URI as string)
     console.log("MongoDB connected")
   } catch (error) {
-    console.error("MongoDB connection error:", error)
-    process.exit(1)
+    console.error("MongoDB connection failed. Retrying in 5s...")
+    setTimeout(() => connectDB(), 5000)
   }
 }
