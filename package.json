@@ -12,6 +12,7 @@
     "build-server": "tsc -p ./srcServer/tsconfig.json",
     "restart-server": "npm run build-server && npm run start-server",
     "start-server": "node ./distServer/server.js",
+	"dev-server": "tsx srcServer/server.ts",
     "predeploy": "npm run build-frontend && npm run build-server"
   },
   "dependencies": {
