@@ -167,11 +167,12 @@ router.post(
       return res.json({
         message: "Svar skickat och sparat"
       })
-    } catch {
-      return res.status(500).json({
-        error: "Kunde inte skicka e-post"
-      })
-    }
+    } catch (error) {
+  console.error("EMAIL ERROR:", error)
+  return res.status(500).json({
+    error: "Kunde inte skicka e-post"
+  })
+}
   }
 )
 
