@@ -139,13 +139,14 @@ router.post(
       }
 
       const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS
-        }
-      })
-
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+})
       await transporter.sendMail({
         from: `"Mary7 Salon" <${process.env.EMAIL_USER}>`,
         to: message.email,
