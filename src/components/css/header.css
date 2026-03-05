@@ -37,7 +37,7 @@
 
 /* ===== NAVBAR DESKTOP ===== */
 .navbar {
-	padding-right: 30px;
+	padding-right: 40px;
   display: flex;
   gap: 50px;
 }
