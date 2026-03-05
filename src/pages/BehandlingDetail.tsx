@@ -26,7 +26,7 @@ function BehandlingDetail() {
   const { id } = useParams()
   const [behandling, setBehandling] = useState<Behandling | null>(null)
 
-  //  fetch اولیه
+  
   useEffect(() => {
     fetch(`/api/behandlingar/${id}`)
       .then(res => res.json())
