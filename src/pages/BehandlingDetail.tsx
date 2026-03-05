@@ -79,16 +79,16 @@ function BehandlingDetail() {
         ))}
       </div>
 
-      {behandling.images && (
-        <section className="gallery">
-          <h2>✨ Inspirationsbilder ✨</h2>
-          <div className="gallery-grid">
-            {behandling.images.map((img, index) => (
-              <img key={index} src={img} alt={behandling.title} />
-            ))}
-          </div>
-        </section>
-      )}
+     {behandling.images && behandling.images.length > 0 && (
+  <section className="gallery">
+    <h2>✨ Inspirationsbilder ✨</h2>
+    <div className="gallery-grid">
+      {behandling.images.map((img, index) => (
+        <img key={index} src={img} alt={behandling.title} />
+      ))}
+    </div>
+  </section>
+)}
 
       <div className="book-div">
         <NavLink to="/behandlingar" className="back-button">
