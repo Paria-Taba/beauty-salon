@@ -39,7 +39,7 @@ function Message() {
         throw new Error(data.error || "Något gick fel")
       }
 
-      setSuccess("Meddelandet har skickats. ✅")
+     setSuccess("Tack för ditt meddelande! Vi återkommer till dig via e-post så snart som möjligt. ✨")
       setEmail("")
       setText("")
 
@@ -55,7 +55,7 @@ function Message() {
       <div>
         <h2>Skicka oss ett meddelande</h2>
         <p className="send-p">
-          Skicka oss ett meddelande så återkommer vi till dig via e-post så snart som möjligt.
+       Har du frågor om våra behandlingar eller vill du komma i kontakt med oss? Skicka gärna ett meddelande.
         </p>
 
         <form className="send-div" onSubmit={handleSubmit}>
