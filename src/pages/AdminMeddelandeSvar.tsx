@@ -98,7 +98,7 @@ function AdminMeddelandeSvar() {
         throw new Error(data.error || "E-post kunde inte skickas")
       }
 
-      setSuccess("Meddelandet har skickats. ✅")
+      setSuccess("Meddelandet har skickats ✅")
       setReply("")
 
       setMessage((prev) =>

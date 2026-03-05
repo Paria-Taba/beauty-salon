@@ -34,6 +34,31 @@ textarea{
 	justify-content: center;
 	align-items: center;
 }
+
+.success-text {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: rgba(198, 167, 94, 0.15);
+  border: 1px solid #C6A75E;
+  border-radius: 10px;
+  color: #2b2008;
+  text-align: center;
+  font-weight: 500;
+  max-width: 400px;
+ 
+}
+
+.error-text {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: rgba(255, 0, 0, 0.08);
+  border: 1px solid #c94a4a;
+  border-radius: 10px;
+  color: #7a1f1f;
+  text-align: center;
+  font-weight: 500;
+  max-width: 400px;
+}
 @media screen and (max-width:768px){
 	.original-message{
 		margin: 20px;
@@ -67,14 +92,4 @@ textarea{
 .original-message{
 	padding: 10px;
 }
-}
-.success-text {
-  color: green;
-  font-weight: 600;
-  margin-top: 10px;
-}
-
-.error-text {
-  color: red;
-  margin-top: 10px;
 }
